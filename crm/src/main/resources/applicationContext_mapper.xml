@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--读取属性文件，读取数据库连接配置文件-->
+    <context:property-placeholder location="classpath:jdbc.properties" ignore-resource-not-found="true"/>
+    <!--注册mapper接口和mapper.xml文件-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!--在Spring的basePackage中，**匹配任意包，*匹配任意包和类-->
+        <property name="basePackage" value="com.high.crm.settings.mapper, com.high.crm.workbench.mapper"/>
+    </bean>
+    <!--创建数据源-->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="driverClassName" value="${jdbc.driverClassName}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+    </bean>
+    <!--配置SqlSessionFactoryBean类-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!--配置数据源-->
+        <property name="dataSource" ref="dataSource"/>
+        <!--配置MyBatis的核心配置文件-->
+        <property name="configLocation" value="classpath:mybatis-config.xml"/>
+        <!--注册实体类的别名-->
+        <property name="typeAliasesPackage" value="com.high.crm.settings.domain, com.high.crm.workbench.domain"/>
+    </bean>
+
+</beans>

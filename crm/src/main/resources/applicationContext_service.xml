@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!--导入applicationContext_mapper.xml文件-->
+    <import resource="applicationContext_mapper.xml"/>
+    <!--基于注解开发，添加包扫描-->
+    <context:component-scan base-package="com.high.crm.*.service"/>
+    <!--添加事务管理器-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    <!--添加注解事务，设置优先级，可以局部改变事务特性-->
+    <tx:annotation-driven order="100"/>
+    <!--配置事务切面-->
+    <tx:advice id="myAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="*select*" read-only="true"/>
+            <tx:method name="*find*" read-only="true"/>
+            <tx:method name="*search*" read-only="true"/>
+            <tx:method name="*get*" read-only="true"/>
+            <tx:method name="*insert*" propagation="REQUIRED" no-rollback-for="ArithmeticException"/>
+            <tx:method name="*add*" propagation="REQUIRED"/>
+            <tx:method name="*save*" propagation="REQUIRED" no-rollback-for="ArithmeticException"/>
+            <tx:method name="*set*" propagation="REQUIRED"/>
+            <tx:method name="*update*" propagation="REQUIRED"/>
+            <tx:method name="*change*" propagation="REQUIRED"/>
+            <tx:method name="*modify*" propagation="REQUIRED"/>
+            <tx:method name="*delete*" propagation="REQUIRED"/>
+            <tx:method name="*remove*" propagation="REQUIRED"/>
+            <tx:method name="*drop*" propagation="REQUIRED"/>
+            <tx:method name="*clear*" propagation="REQUIRED"/>
+            <tx:method name="*" propagation="SUPPORTS"/>
+        </tx:attributes>
+    </tx:advice>
+    <!--绑定切面和切入点-->
+    <aop:config>
+        <aop:pointcut id="myCut" expression="execution(* com.high.crm.*.service.impl.*.*(..))"/>
+        <aop:advisor order="1" advice-ref="myAdvice" pointcut-ref="myCut"/>
+    </aop:config>
+
+</beans>
