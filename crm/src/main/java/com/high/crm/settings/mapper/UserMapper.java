@@ -2,6 +2,7 @@ package com.high.crm.settings.mapper;
 
 import com.high.crm.settings.domain.User;
 
+import java.util.List;
 import java.util.Map;
 
 public interface UserMapper {
@@ -54,4 +55,6 @@ public interface UserMapper {
     int updateByPrimaryKey(User row);
 
     User selectUserByLoginActAndLoginPwd(Map<String, String> map);
+
+    List<User> selectAllUser();
 }

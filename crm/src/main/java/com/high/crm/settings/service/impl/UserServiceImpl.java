@@ -5,6 +5,7 @@ import com.high.crm.settings.mapper.UserMapper;
 import com.high.crm.settings.service.UserService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -26,5 +27,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public User selectUserByLoginActAndLoginPwd(Map<String, String> map) {
         return userMapper.selectUserByLoginActAndLoginPwd(map);
+    }
+
+    @Override
+    public List<User> selectAllUser() {
+        return userMapper.selectAllUser();
     }
 }

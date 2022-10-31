@@ -2,6 +2,7 @@ package com.high.crm.settings.service;
 
 import com.high.crm.settings.domain.User;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -13,4 +14,6 @@ import java.util.Map;
  */
 public interface UserService {
     User selectUserByLoginActAndLoginPwd(Map<String, String> map);
+
+    List<User> selectAllUser();
 }
