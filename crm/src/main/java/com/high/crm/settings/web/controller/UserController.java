@@ -60,7 +60,7 @@ public class UserController {
                     // 获取session对象
                     HttpSession session = request.getSession();
                     // 将用户信息存入会话
-                    session.setAttribute("user", user);
+                    session.setAttribute(Constant.SESSION_USER, user);
                     return "redirect:/workbench/index.do";
                 }
             }
@@ -99,7 +99,7 @@ public class UserController {
                 // 获取session对象
                 HttpSession session = request.getSession();
                 // 将用户信息存入会话
-                session.setAttribute("user", user);
+                session.setAttribute(Constant.SESSION_USER, user);
                 if ("true".equals(isRemPwd)) {
                     Cookie c1 = new Cookie("loginAct", loginAct);
                     c1.setMaxAge(10 * 24 * 60 * 60 * 1000);

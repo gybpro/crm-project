@@ -15,4 +15,9 @@ public class Constant {
      */
     public static final String RETURN_DTO_CODE_SUCCESS = "1";
     public static final String RETURN_DTO_CODE_FAIL = "0";
+
+    /**
+     * @SESSION_USER 保存当前会话中用户的key
+     */
+    public static final String SESSION_USER = "sessionUser";
 }
