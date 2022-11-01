@@ -86,55 +86,51 @@
                selectByExampleQueryId="false">
         </table>-->
 
-        <!--
-        <table tableName="tbl_clue" domainObjectName="Clue"
+        <!--<table tableName="tbl_clue" domainObjectName="Clue"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">
-        </table>
+        </table>-->
 
-        <table tableName="tbl_clue_activity_relation" domainObjectName="ClueActivityRelation"
+        <!--<table tableName="tbl_clue_activity_relation" domainObjectName="ClueActivityRelation"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">
-        </table>
+        </table>-->
 
-        <table tableName="tbl_clue_remark" domainObjectName="ClueRemark"
+        <!--<table tableName="tbl_clue_remark" domainObjectName="ClueRemark"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">
-        </table>
-        -->
-        <!--
-        <table tableName="tbl_contacts" domainObjectName="Contacts"
-               enableCountByExample="false" enableUpdateByExample="false"
-               enableDeleteByExample="false" enableSelectByExample="false"
-               selectByExampleQueryId="false">
-        </table>
-        <table tableName="tbl_contacts_activity_relation" domainObjectName="ContactsActivityRelation"
-               enableCountByExample="false" enableUpdateByExample="false"
-               enableDeleteByExample="false" enableSelectByExample="false"
-               selectByExampleQueryId="false">
-        </table>
-        <table tableName="tbl_contacts_remark" domainObjectName="ContactsRemark"
-               enableCountByExample="false" enableUpdateByExample="false"
-               enableDeleteByExample="false" enableSelectByExample="false"
-               selectByExampleQueryId="false">
-        </table>
-        -->
-        <!--
-        <table tableName="tbl_customer" domainObjectName="Customer"
-               enableCountByExample="false" enableUpdateByExample="false"
-               enableDeleteByExample="false" enableSelectByExample="false"
-               selectByExampleQueryId="false">
-        </table>
+        </table>-->
 
-        <table tableName="tbl_customer_remark" domainObjectName="CustomerRemark"
+        <!--<table tableName="tbl_contacts" domainObjectName="Contacts"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">
-        </table>
-        -->
+        </table>-->
+        <!--<table tableName="tbl_contacts_activity_relation" domainObjectName="ContactsActivityRelation"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+        </table>-->
+        <!--<table tableName="tbl_contacts_remark" domainObjectName="ContactsRemark"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+        </table>-->
+
+        <!--<table tableName="tbl_customer" domainObjectName="Customer"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+        </table>-->
+
+        <!--<table tableName="tbl_customer_remark" domainObjectName="CustomerRemark"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+        </table>-->
 
         <!--<table tableName="tbl_dictionary_type" domainObjectName="DictionaryType"
                enableCountByExample="false" enableUpdateByExample="false"
@@ -150,11 +146,11 @@
         </table>-->
 
 
-        <table tableName="tbl_activity" domainObjectName="Activity"
+        <!--<table tableName="tbl_activity" domainObjectName="Activity"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">
-        </table>
+        </table>-->
 
 
         <!--<table tableName="tbl_activity_remark" domainObjectName="ActivitiesRemark"
@@ -163,23 +159,21 @@
                selectByExampleQueryId="false">
         </table>-->
 
-        <!--
-        <table tableName="tbl_transaction" domainObjectName="Transaction"
+        <!--<table tableName="tbl_transaction" domainObjectName="Transaction"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">
-        </table>
-        <table tableName="tbl_transaction_history" domainObjectName="TransactionHistory"
+        </table>-->
+        <!--<table tableName="tbl_transaction_history" domainObjectName="TransactionHistory"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">
-        </table>
-        <table tableName="tbl_transaction_remark" domainObjectName="TransactionRemark"
+        </table>-->
+        <!--<table tableName="tbl_transaction_remark" domainObjectName="TransactionRemark"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">
-        </table>
-        -->
+        </table>-->
 
     </context>
 </generatorConfiguration>
