@@ -80,21 +80,21 @@ public class UserController {
         User user = userService.selectUserByLoginActAndLoginPwd(map);
         ResultDTO resultDTO = new ResultDTO();
         if (user == null) {
-            resultDTO.setCode(Constant.RETURN_DTO_CODE_FAIL);
+            resultDTO.setCode(Constant.RESULT_DTO_CODE_FAIL);
             resultDTO.setMessage("用户名密码错误");
         } else {
             String nowDateTime = DateUtil.formatDateTime(new Date());
             if (nowDateTime.compareTo(user.getExpireTime()) > 0) {
-                resultDTO.setCode(Constant.RETURN_DTO_CODE_FAIL);
+                resultDTO.setCode(Constant.RESULT_DTO_CODE_FAIL);
                 resultDTO.setMessage("用户已过期");
             } else if ("0".equals(user.getLockState())) {
-                resultDTO.setCode(Constant.RETURN_DTO_CODE_FAIL);
+                resultDTO.setCode(Constant.RESULT_DTO_CODE_FAIL);
                 resultDTO.setMessage("用户状态被锁定");
             } else if (!user.getAllowIps().contains(request.getRemoteAddr())) {
-                resultDTO.setCode(Constant.RETURN_DTO_CODE_FAIL);
+                resultDTO.setCode(Constant.RESULT_DTO_CODE_FAIL);
                 resultDTO.setMessage("ip受限");
             } else {
-                resultDTO.setCode(Constant.RETURN_DTO_CODE_SUCCESS);
+                resultDTO.setCode(Constant.RESULT_DTO_CODE_SUCCESS);
                 resultDTO.setMessage("登录成功");
                 // 获取session对象
                 HttpSession session = request.getSession();

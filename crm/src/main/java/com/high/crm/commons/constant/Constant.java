@@ -10,11 +10,11 @@ package com.high.crm.commons.constant;
 public class Constant {
     /**
      * @Description 返回DTO的状态码
-     * @RETURN_DTO_CODE_SUCCESS 成功为1
-     * @RETURN_DTO_CODE_FAIL 失败为0
+     * @RESULT_DTO_CODE_SUCCESS 成功为1
+     * @RESULT_DTO_CODE_FAIL 失败为0
      */
-    public static final String RETURN_DTO_CODE_SUCCESS = "1";
-    public static final String RETURN_DTO_CODE_FAIL = "0";
+    public static final String RESULT_DTO_CODE_SUCCESS = "1";
+    public static final String RESULT_DTO_CODE_FAIL = "0";
 
     /**
      * @SESSION_USER 保存当前会话中用户的key
