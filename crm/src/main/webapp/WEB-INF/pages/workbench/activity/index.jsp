@@ -188,10 +188,103 @@
 
             // 页面加载时绑定修改按钮点击事件
             $("#editActivityBtn").click(function () {
-                // 将市场活动的值写入表单
-                // $("#editActivityForm")
-                // 显示表单页面
-                $("#editActivityModal").modal("show");
+                // 收集参数
+                let checkedId = $("#tBody input[type='checkbox']:checked");
+                // 判断选择数
+                if (checkedId.size() === 0) {
+                    alert("请选择要修改的市场活动");
+                    return;
+                } else if (checkedId.size() > 1) {
+                    alert("一次只能修改一个市场活动");
+                    return;
+                }
+                // 清空市场活动修改表单
+                $("#editActivityForm")[0].reset();
+                // 查询并将市场活动的值写入表单
+                // alert(checkedId.val());
+                $.ajax({
+                    type: "GET",
+                    url: "workbench/activity/selectOne.do",
+                    data: "id=" + checkedId.val(),
+                    dataType: "json",
+                    async: true,
+                    success: function (json) {
+                        if (json.code === "1") {
+                            // 设置参数
+                            $("#edit-marketActivityName").val(json.data.name);
+                            $("#edit-startDate").val(json.data.startDate);
+                            $("#edit-endDate").val(json.data.endDate);
+                            $("#edit-cost").val(json.data.cost);
+                            $("#edit-description").val(json.data.description);
+                            // 显示表单页面
+                            $("#editActivityModal").modal("show");
+                        } else {
+                            alert(json.message);
+                        }
+                    }
+                });
+            });
+
+            // 页面加载时绑定修改表单更新按钮点击事件
+            $("#updateEditActivityBtn").click(function () {
+                // 获取表单数据
+                let id = $("#tBody input[type='checkbox']:checked").val();
+                let owner = $("#edit-marketActivityOwner").val();
+                let name = $.trim($("#edit-marketActivityName").val());
+                let startDate = $("#edit-startDate").val();
+                let endDate = $("#edit-endDate").val();
+                let cost = $.trim($("#edit-cost").val());
+                let description = $.trim($("#edit-description").val());
+                // 表单验证
+                if (owner === "") {
+                    alert("所有者不能为空");
+                    return;
+                }
+                if (name === "") {
+                    alert("名称不能为空");
+                    return;
+                }
+                if (startDate!=="" && endDate!=="") {
+                    if (endDate < startDate) {
+                        alert("结束日期不能小于开始日期");
+                        return;
+                    }
+                }
+                let regExp = /^(([1-9]\d*)|0)$/;
+                if (!regExp.test(cost)) {
+                    alert("成本只能为非负整数");
+                    return;
+                }
+                // 发送请求
+                $.ajax({
+                    type: "POST",
+                    url: "workbench/activity/update.do",
+                    data: {
+                        id: id,
+                        owner: owner,
+                        name: name,
+                        startDate: startDate,
+                        endDate: endDate,
+                        cost: cost,
+                        description: description
+                    },
+                    dataType: 'json',
+                    async: true,
+                    success: function (json) {
+                        if (json.code === '1') {
+                            // 关闭模态窗
+                            $("#editActivityModal").modal("hide");
+                            // 刷新市场活动显示列，显示第一页数据，保持每页显示条数不变
+                            let turnPage = $("#turnPage");
+                            selectActivityByConditionForPage(turnPage.bs_pagination("getOption", "currentPage"),
+                                turnPage.bs_pagination("getOption", 'rowsPerPage'));
+                        } else {
+                            alert(json.message);
+                            // 模态窗不关闭
+                            $("#editActivityModal").modal("show");// 可以不写
+                        }
+                    }
+                });
             });
         });
 
@@ -364,11 +457,11 @@
                     <div class="form-group">
                         <label for="edit-startDate" class="col-sm-2 control-label">开始日期</label>
                         <div class="col-sm-10" style="width: 300px;">
-                            <input type="text" class="form-control" id="edit-startDate" value="2020-10-10">
+                            <input type="text" class="form-control myDate" id="edit-startDate" readonly>
                         </div>
                         <label for="edit-endDate" class="col-sm-2 control-label">结束日期</label>
                         <div class="col-sm-10" style="width: 300px;">
-                            <input type="text" class="form-control" id="edit-endDate" value="2020-10-20">
+                            <input type="text" class="form-control myDate" id="edit-endDate" readonly>
                         </div>
                     </div>
 

@@ -122,6 +122,45 @@ public class ActivityController extends HttpServlet {
         return resultDTO;
     }
 
+    @RequestMapping("selectOne.do")
+    @ResponseBody
+    public ResultDTO selectOne(String id) {
+        Activity activity = activityService.selectActivityById(id);
+        ResultDTO resultDTO = new ResultDTO();
+        if (activity != null) {
+            resultDTO.setCode(Constant.RESULT_DTO_CODE_SUCCESS);
+            resultDTO.setMessage("查询成功");
+            resultDTO.setData(activity);
+        } else {
+            resultDTO.setCode(Constant.RESULT_DTO_CODE_FAIL);
+            resultDTO.setMessage("系统忙，请稍后重试......");
+        }
+        return resultDTO;
+    }
+
+    @RequestMapping("/update.do")
+    @ResponseBody
+    public ResultDTO update(Activity activity, HttpSession session) {
+        User user = (User) session.getAttribute(Constant.SESSION_USER);
+        activity.setEditTime(DateUtil.formatDateTime(new Date()));
+        activity.setEditBy(user.getId());
+        ResultDTO resultDTO = new ResultDTO();
+        try {
+            if (activityService.updateActivity(activity) > 0) {
+                resultDTO.setCode(Constant.RESULT_DTO_CODE_SUCCESS);
+                resultDTO.setMessage("修改成功");
+            } else {
+                resultDTO.setCode(Constant.RESULT_DTO_CODE_FAIL);
+                resultDTO.setMessage("系统忙，请稍后重试......");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            resultDTO.setCode(Constant.RESULT_DTO_CODE_FAIL);
+            resultDTO.setMessage("系统忙，请稍后重试......");
+        }
+        return resultDTO;
+    }
+
     @RequestMapping("/detail.do")
     public String detail() {
         return "workbench/activity/detail";
