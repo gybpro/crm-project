@@ -52,4 +52,9 @@ public class ActivityServiceImpl implements ActivityService {
     public int updateActivity(Activity activity) {
         return activityMapper.updateActivity(activity);
     }
+
+    @Override
+    public List<Activity> selectAllActivity() {
+        return activityMapper.selectAllActivity();
+    }
 }

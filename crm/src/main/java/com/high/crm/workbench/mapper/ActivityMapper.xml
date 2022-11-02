@@ -275,4 +275,14 @@
         edit_by = #{editBy,jdbcType=VARCHAR}
         where id = #{id,jdbcType=CHAR}
     </update>
+
+    <select id="selectAllActivity" resultMap="BaseResultMap">
+        select a.id, a.name, u1.name as owner, a.start_date, a.end_date, a.cost, a.description, a.create_time,
+               u2.name as create_by, a.edit_time, u3.name as edit_by
+        from tbl_activity a
+                 join tbl_user u1 on a.owner = u1.id
+                 join tbl_user u2 on a.create_by = u2.id
+                 left join tbl_user u3 on a.edit_by = u3.id
+        order by a.start_date desc
+    </select>
 </mapper>

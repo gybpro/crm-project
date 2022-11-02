@@ -79,4 +79,10 @@ public interface ActivityMapper {
      * @return
      */
     int updateActivity(Activity activity);
+
+    /**
+     * 查询所有信息
+     * @return
+     */
+    List<Activity> selectAllActivity();
 }

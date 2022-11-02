@@ -286,6 +286,12 @@
                     }
                 });
             });
+
+            // 页面加载时绑定批量导出按钮点击事件
+            $("#exportActivityAllBtn").click(function () {
+                // 发送同步请求，文件传输必须是同步请求
+                window.location.href = "workbench/activity/exportAllActivity.do"
+            });
         });
 
         // 查询刷新市场活动列表及数据
