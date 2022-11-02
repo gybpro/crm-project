@@ -25,7 +25,7 @@
 
         $(function () {
             // 页面加载时刷新市场活动数据
-            selectActivityByConditionForPage(1, 10);
+            selectActivityByConditionForPage(1, 5);
 
             // 页面加载时绑定查询按钮单击事件
             $("#selectBtn").click(function () {
@@ -135,6 +135,22 @@
                 clearBtn: true // 设置清空日期的按钮，默认是false
             });
 
+            // 页面加载时绑定全选按钮单击事件
+            $("#checkAll").click(function () {
+                $("#tBody input[type='checkbox']").prop("checked", this.checked);
+            });
+
+            // 页面加载时绑定市场活动列表变化事件
+            // on("事件类型", "子选择器", fun)是标签内容发生变化时事件，用于为子标签动态绑定事件
+            // fun是子标签事件函数，函数内的this是指向发生子标签事件的元素
+            $("#tBody").on("click", "input[type='checkbox']", function () {
+                if ($("#tBody input[type='checkbox']").size() === $("#tBody input[type='checkbox']:checked").size()) {
+                    $("#checkAll").prop("checked", true);
+                } else {
+                    $("#checkAll").prop("checked", false);
+                }
+            });
+
             // 页面加载时绑定修改按钮点击事件
             $("#editActivityBtn").click(function () {
                 // 将市场活动的值写入表单
@@ -168,7 +184,7 @@
                     let html = "";
                     $.each(json.data.activityList, function (index, obj) {
                         html += "<tr class=\"active\">";
-                        html += "    <td><input type=\"checkbox\"/></td>";
+                        html += "    <td><input type=\"checkbox\" value='" + obj.id + "'/></td>";
                         html += "    <td><a style=\"text-decoration: none; cursor: pointer;\"";
                         html += "           onclick=\"window.location.href='workbench/activity/detail.do?id=" +
                             obj.id  + "';\">" + obj.name + "</a>";
@@ -180,7 +196,10 @@
                     });
                     // 选择器.html()，覆盖显示
                     // 选择器.append()，追加显示
-                    $("#activityList").html(html);
+                    $("#tBody").html(html);
+
+                    // 取消全选
+                    $("#checkAll").prop("checked", false);
 
                     // 翻页插件使用
                     $("#turnPage").bs_pagination({
@@ -195,6 +214,7 @@
                         showRowsPerPage: true,//是否显示"每页显示条数"部分。默认true--显示
                         showRowsInfo: true,//是否显示记录的信息，默认true--显示
 
+                        // 页面变换事件
                         // event是事件
                         onChangePage: function (event, pageObj) {
                             selectActivityByConditionForPage(pageObj.currentPage, pageObj.rowsPerPage);
@@ -456,14 +476,14 @@
             <table class="table table-hover">
                 <thead>
                 <tr style="color: #B3B3B3;">
-                    <td><input type="checkbox"/></td>
+                    <td><input type="checkbox" id="checkAll"/></td>
                     <td>名称</td>
                     <td>所有者</td>
                     <td>开始日期</td>
                     <td>结束日期</td>
                 </tr>
                 </thead>
-                <tbody id="activityList">
+                <tbody id="tBody">
                 <%--<tr class="active">
                     <td><input type="checkbox"/></td>
                     <td><a style="text-decoration: none; cursor: pointer;" onclick="window.location.href='detail.jsp';">发传单</a>
