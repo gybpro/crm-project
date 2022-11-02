@@ -41,7 +41,7 @@
                 $("#createActivityModal").modal("show");
             });
 
-            // 创建保存添加按钮点击事件
+            // 页面加载时绑定添加市场活动保存按钮点击事件
             $("#saveCreateActivityBtn").click(function () {
                 // 获取表单数据
                 let owner = $("#create-marketActivityOwner").val();
@@ -148,6 +148,41 @@
                     $("#checkAll").prop("checked", true);
                 } else {
                     $("#checkAll").prop("checked", false);
+                }
+            });
+
+            // 页面加载时绑定删除按钮点击事件
+            $("#deleteActivityBtn").click(function () {
+                // 收集参数
+                let checkedIds = $("#tBody input[type='checkbox']:checked");
+                // 判空
+                if (checkedIds.size() === 0) {
+                    alert("请选择要删除的市场活动");
+                    return;
+                }
+                // 发送请求
+                if (confirm("注意：删除后无法恢复，是否确定删除？")) {
+                    let ids = "";
+                    $.each(checkedIds, function () {
+                        ids += "id=" + this.value + "&";
+                    });
+                    ids = ids.substring(0, ids.length-1);
+                    $.ajax({
+                        type: "POST",
+                        url: "workbench/activity/delete.do",
+                        data: ids,
+                        dataType: "json",
+                        async: true,
+                        success: function (json) {
+                            if (json.code === "1") {
+                                // 刷新市场活动列表
+                                selectActivityByConditionForPage(1, $("#turnPage").bs_pagination("getOption",
+                                    "rowsPerPage"));
+                            } else {
+                                alert(json.message);
+                            }
+                        }
+                    })
                 }
             });
 

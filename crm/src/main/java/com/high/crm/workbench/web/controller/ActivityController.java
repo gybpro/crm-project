@@ -10,6 +10,7 @@ import com.high.crm.workbench.domain.Activity;
 import com.high.crm.workbench.service.ActivityService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServlet;
@@ -64,12 +65,12 @@ public class ActivityController extends HttpServlet {
                 resultDTO.setMessage("添加成功");
             } else {
                 resultDTO.setCode(Constant.RESULT_DTO_CODE_FAIL);
-                resultDTO.setMessage("系统忙，请稍候重试。。。");
+                resultDTO.setMessage("系统忙，请稍后重试......");
             }
         } catch (Exception e) {
             e.printStackTrace();
             resultDTO.setCode(Constant.RESULT_DTO_CODE_FAIL);
-            resultDTO.setMessage("系统忙，请稍候重试。。。");
+            resultDTO.setMessage("系统忙，请稍后重试......");
         }
         return resultDTO;
     }
@@ -94,6 +95,29 @@ public class ActivityController extends HttpServlet {
             map.put("activityList", activityList);
             map.put("totalRows", totalRows);
             resultDTO.setData(map);
+        } else {
+            resultDTO.setCode(Constant.RESULT_DTO_CODE_FAIL);
+            resultDTO.setMessage("系统忙，请稍后重试......");
+        }
+        return resultDTO;
+    }
+
+    @RequestMapping("/delete.do")
+    @ResponseBody
+    public ResultDTO delete(String[] id) {
+        ResultDTO resultDTO = new ResultDTO();
+        try {
+            if (activityService.deleteActivityByIds(id) > 0) {
+                resultDTO.setCode(Constant.RESULT_DTO_CODE_SUCCESS);
+                resultDTO.setMessage("删除成功");
+            } else {
+                resultDTO.setCode(Constant.RESULT_DTO_CODE_FAIL);
+                resultDTO.setMessage("系统忙，请稍后重试......");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            resultDTO.setCode(Constant.RESULT_DTO_CODE_FAIL);
+            resultDTO.setMessage("系统忙，请稍后重试......");
         }
         return resultDTO;
     }
