@@ -61,12 +61,12 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				</div>
 				<div class="modal-body">
 					<div style="position: relative; left: 40px;">
-						姓名：<b>张三</b><br><br>
-						登录帐号：<b>zhangsan</b><br><br>
-						组织机构：<b>1005，市场部，二级部门</b><br><br>
-						邮箱：<b>zhangsan@bjpowernode.com</b><br><br>
-						失效时间：<b>2017-02-14 10:10:10</b><br><br>
-						允许访问IP：<b>127.0.0.1,192.168.100.2</b>
+						姓名：<b>${sessionScope.sessionUser.name}</b><br><br>
+						登录帐号：<b>${sessionScope.sessionUser.loginAct}</b><br><br>
+						组织机构：<b>${sessionScope.sessionUser.deptno}，市场部，二级部门</b><br><br>
+						邮箱：<b>${sessionScope.sessionUser.email}</b><br><br>
+						失效时间：<b>${sessionScope.sessionUser.expireTime}</b><br><br>
+						允许访问IP：<b>${sessionScope.sessionUser.allowIps}</b>
 					</div>
 				</div>
 				<div class="modal-footer">
@@ -147,7 +147,8 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 			<ul>
 				<li class="dropdown user-dropdown">
 					<a href="javascript:void(0)" style="text-decoration: none; color: white;" class="dropdown-toggle" data-toggle="dropdown">
-						<span class="glyphicon glyphicon-user"></span> zhangsan <span class="caret"></span>
+						<span class="glyphicon glyphicon-user"></span> ${sessionScope.sessionUser.name} <span
+							class="caret"></span>
 					</a>
 					<ul class="dropdown-menu">
 						<li><a href="settings/index.html"><span class="glyphicon glyphicon-wrench"></span> 系统设置</a></li>

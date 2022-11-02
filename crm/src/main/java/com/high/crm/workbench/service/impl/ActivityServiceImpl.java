@@ -5,6 +5,9 @@ import com.high.crm.workbench.mapper.ActivityMapper;
 import com.high.crm.workbench.service.ActivityService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * @Classname ActivityServiceImpl
  * @Description 市场活动相关业务实现类
@@ -23,5 +26,15 @@ public class ActivityServiceImpl implements ActivityService {
     @Override
     public int insertActivity(Activity activity) {
         return activityMapper.insertActivity(activity);
+    }
+
+    @Override
+    public List<Activity> selectActivityByConditionForPage(Map<String, Object> map) {
+        return activityMapper.selectActivityByConditionForPage(map);
+    }
+
+    @Override
+    public int selectCountOfActivityByCondition(Map<String, Object> map) {
+        return activityMapper.selectCountOfActivityByCondition(map);
     }
 }

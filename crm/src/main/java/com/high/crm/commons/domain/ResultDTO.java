@@ -20,5 +20,5 @@ public class ResultDTO {
     // 提示信息
     private String message;
     // 返回数据
-    private Object returnData;
+    private Object data;
 }

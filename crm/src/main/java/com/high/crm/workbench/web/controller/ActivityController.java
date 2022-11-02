@@ -9,7 +9,6 @@ import com.high.crm.settings.service.UserService;
 import com.high.crm.workbench.domain.Activity;
 import com.high.crm.workbench.service.ActivityService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -17,7 +16,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Classname ActivityController
@@ -69,6 +70,30 @@ public class ActivityController extends HttpServlet {
             e.printStackTrace();
             resultDTO.setCode(Constant.RESULT_DTO_CODE_FAIL);
             resultDTO.setMessage("系统忙，请稍候重试。。。");
+        }
+        return resultDTO;
+    }
+
+    @RequestMapping("/select.do")
+    @ResponseBody
+    public ResultDTO select(String name, String owner, String startDate, String endDate, int pageNo, int pageSize) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("name", name);
+        map.put("owner", owner);
+        map.put("startDate", startDate);
+        map.put("endDate", endDate);
+        map.put("beginNo", (pageNo - 1) * pageSize);
+        map.put("pageSize", pageSize);
+        List<Activity> activityList = activityService.selectActivityByConditionForPage(map);
+        int totalRows = activityService.selectCountOfActivityByCondition(map);
+        ResultDTO resultDTO = new ResultDTO();
+        if (activityList != null && !(activityList.isEmpty())) {
+            resultDTO.setCode(Constant.RESULT_DTO_CODE_SUCCESS);
+            resultDTO.setMessage("查询成功");
+            map.clear();
+            map.put("activityList", activityList);
+            map.put("totalRows", totalRows);
+            resultDTO.setData(map);
         }
         return resultDTO;
     }
