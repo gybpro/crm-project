@@ -57,4 +57,9 @@ public class ActivityServiceImpl implements ActivityService {
     public List<Activity> selectAllActivity() {
         return activityMapper.selectAllActivity();
     }
+
+    @Override
+    public List<Activity> selectActivityByIds(String[] ids) {
+        return activityMapper.selectActivityByIds(ids);
+    }
 }

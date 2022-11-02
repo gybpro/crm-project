@@ -85,4 +85,11 @@ public interface ActivityMapper {
      * @return
      */
     List<Activity> selectAllActivity();
+
+    /**
+     * 根据id批量查询信息
+     * @param ids
+     * @return
+     */
+    List<Activity> selectActivityByIds(String[] ids);
 }

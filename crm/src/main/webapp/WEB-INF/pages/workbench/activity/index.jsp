@@ -290,7 +290,24 @@
             // 页面加载时绑定批量导出按钮点击事件
             $("#exportActivityAllBtn").click(function () {
                 // 发送同步请求，文件传输必须是同步请求
-                window.location.href = "workbench/activity/exportAllActivity.do"
+                window.location.href = "workbench/activity/exportAllActivity.do";
+            });
+
+            // 页面加载时绑定选择导出按钮点击事件
+            $("#exportActivityXzBtn").click(function () {
+                // 获取参数
+                let checkedIds = $("#tBody input[type='checkbox']:checked");
+                // 判断大小
+                if (checkedIds.size() === 0) {
+                    alert("请选择要导出的市场活动");
+                    return;
+                }
+                let url = "workbench/activity/exportSelectActivity.do?";
+                $.each(checkedIds, function (index, obj) {
+                    url += "id=" + obj.value + "&";
+                });
+                url = url.substring(0, url.length - 1);
+                window.location.href = url;
             });
         });
 

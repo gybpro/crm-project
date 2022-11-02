@@ -171,6 +171,17 @@ public class ActivityController extends HttpServlet {
     public void exportAllActivity(HttpServletResponse response) throws IOException {
         // 调用Service层方法，查询所有市场活动
         List<Activity> activityList = activityService.selectAllActivity();
+        export(activityList, response);
+    }
+
+    @RequestMapping("/exportSelectActivity.do")
+    public void exportSelectActivity(String[] id, HttpServletResponse response) throws IOException {
+        // 调用业务层方法，查询数据
+        List<Activity> activityList = activityService.selectActivityByIds(id);
+        export(activityList, response);
+    }
+
+    private void export(List<Activity> activityList, HttpServletResponse response) throws IOException {
         // 创建excel文件，把数据写入文件中
         HSSFWorkbook wb = new HSSFWorkbook();
         HSSFSheet sheet = wb.createSheet("市场活动列表");
