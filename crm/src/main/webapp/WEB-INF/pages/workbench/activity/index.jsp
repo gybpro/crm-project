@@ -8,6 +8,13 @@
     <base href="<%=basePath%>">
     <meta charset="UTF-8">
 
+    <style>
+        #tBody tr td a{
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+
     <link href="jquery/bootstrap_3.3.0/css/bootstrap.min.css" type="text/css" rel="stylesheet"/>
     <link href="jquery/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css" type="text/css"
           rel="stylesheet"/>
@@ -353,6 +360,11 @@
             });
         });
 
+        // 跳转详情页函数
+        function detail(id) {
+            window.location = "workbench/activity/detail.do?id=" + id;
+        }
+
         // 查询刷新市场活动列表及数据
         function selectActivityByConditionForPage(pageNo, pageSize) {
             let name = $("#select-name").val();
@@ -377,14 +389,11 @@
                     let html = "";
                     $.each(json.data.activityList, function (index, obj) {
                         html += "<tr class=\"active\">";
-                        html += "    <td><input type=\"checkbox\" value='" + obj.id + "'/></td>";
-                        html += "    <td><a style=\"text-decoration: none; cursor: pointer;\"";
-                        html += "           onclick=\"window.location.href='workbench/activity/detail.do?id=" +
-                            obj.id  + "';\">" + obj.name + "</a>";
-                        html += "    </td>";
-                        html += "    <td>" + obj.owner + "</td>";
-                        html += "    <td>" + obj.startDate + "</td>";
-                        html += "    <td>" + obj.endDate + "</td>";
+                        html += "<td><input type=\"checkbox\" value='" + obj.id + "'/></td>";
+                        html += "<td>" + "<a onclick=\"detail(" + obj.id  + ")\">" + obj.name + "</a>" + "</td>";
+                        html += "<td>" + obj.owner + "</td>";
+                        html += "<td>" + obj.startDate + "</td>";
+                        html += "<td>" + obj.endDate + "</td>";
                         html += "</tr>";
                     });
                     // 选择器.html()，覆盖显示
@@ -416,7 +425,6 @@
                 }
             });
         }
-
     </script>
 </head>
 <body>
