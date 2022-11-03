@@ -153,11 +153,11 @@
         </table>-->
 
 
-        <table tableName="tbl_activity_remark" domainObjectName="ActivitiesRemark"
+        <!--<table tableName="tbl_activity_remark" domainObjectName="ActivityRemark"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">
-        </table>
+        </table>-->
 
         <!--<table tableName="tbl_transaction" domainObjectName="Transaction"
                enableCountByExample="false" enableUpdateByExample="false"
