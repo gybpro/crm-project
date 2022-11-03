@@ -3,7 +3,7 @@ package com.high.crm.workbench.web.controller;
 import com.high.crm.commons.constant.Constant;
 import com.high.crm.commons.domain.ResultDTO;
 import com.high.crm.commons.util.DateUtil;
-import com.high.crm.commons.util.ExportUtil;
+import com.high.crm.commons.util.HSSFUtil;
 import com.high.crm.commons.util.UUIDUtil;
 import com.high.crm.settings.domain.User;
 import com.high.crm.settings.service.UserService;
@@ -16,13 +16,14 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.io.OutputStream;
+import java.io.InputStream;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -172,14 +173,41 @@ public class ActivityController extends HttpServlet {
     public void exportAllActivity(HttpServletResponse response) throws IOException {
         // 调用Service层方法，查询所有市场活动
         List<Activity> activityList = activityService.selectAllActivity();
-        ExportUtil.exportActivity(activityList, response);
+        HSSFUtil.exportActivity(activityList, response);
     }
 
     @RequestMapping("/exportSelectActivity.do")
     public void exportSelectActivity(String[] id, HttpServletResponse response) throws IOException {
         // 调用业务层方法，查询数据
         List<Activity> activityList = activityService.selectActivityByIds(id);
-        ExportUtil.exportActivity(activityList, response);
+        HSSFUtil.exportActivity(activityList, response);
+    }
+
+    @RequestMapping("/importActivity.do")
+    @ResponseBody
+    public ResultDTO importActivity(MultipartFile file, HttpSession session) throws IOException {
+        InputStream in = file.getInputStream();
+        User user = (User) session.getAttribute(Constant.SESSION_USER);
+        List<Activity> activityList = HSSFUtil.importActivity(in, user);
+        ResultDTO resultDTO = new ResultDTO();
+        try {
+            int i = activityService.insertActivityByList(activityList);
+            if (i > 0) {
+                resultDTO.setCode(Constant.RESULT_DTO_CODE_SUCCESS);
+                resultDTO.setMessage("添加成功");
+                resultDTO.setData(i);
+            } else {
+                resultDTO.setCode(Constant.RESULT_DTO_CODE_FAIL);
+                resultDTO.setMessage("系统忙，请稍后重试......");
+                resultDTO.setData(0);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            resultDTO.setCode(Constant.RESULT_DTO_CODE_FAIL);
+            resultDTO.setMessage("系统忙，请稍后重试......");
+            resultDTO.setData(0);
+        }
+        return resultDTO;
     }
 
     @RequestMapping("/detail.do")

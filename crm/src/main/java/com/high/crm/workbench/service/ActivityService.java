@@ -67,4 +67,11 @@ public interface ActivityService {
      * @return
      */
     List<Activity> selectActivityByIds(String[] ids);
+
+    /**
+     * 批量添加市场活动
+     * @param activityList
+     * @return
+     */
+    int insertActivityByList(List<Activity> activityList);
 }

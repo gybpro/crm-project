@@ -1,24 +1,29 @@
 package com.high.crm.commons.util;
 
+import com.high.crm.settings.domain.User;
 import com.high.crm.workbench.domain.Activity;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.CellType;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
- * @Classname ExportUtil
- * @Description 导出数据工具类
+ * @Classname HSSFUtil
+ * @Description Excel文件操作工具类
  * @Author high
  * @Create 2022/11/3 9:12
  * @Version 1.0
  */
-public class ExportUtil {
+public class HSSFUtil {
     /**
      * 导出市场活动为.xls的excel文件
      * @param activityList
@@ -103,5 +108,35 @@ public class ExportUtil {
         // 也可能tomcat还要使用，如果关闭会出现严重错误
         // 将流中数据全部强制输出，防止数据残留
         out.flush();
+    }
+
+    public static List<Activity> importActivity(InputStream in, User user) throws IOException {
+        HSSFWorkbook wb = new HSSFWorkbook(in);
+        HSSFSheet sheet = wb.getSheetAt(0);
+        HSSFRow row;
+        HSSFCell cell;
+        List<Activity> activityList = new ArrayList<>();
+        for (int i = 1; i <= sheet.getLastRowNum(); i++) {
+            Activity activity = new Activity();
+            row = sheet.getRow(i);
+            activity.setId(UUIDUtil.getUUID());
+            activity.setOwner(user.getId());
+            activity.setCreateBy(user.getId());
+            activity.setCreateTime(DateUtil.formatDateTime(new Date()));
+            for (int j = 0; j < row.getLastCellNum(); j++) {
+                cell = row.getCell(j);
+                cell.setCellType(CellType.STRING);
+                String cellValue = cell.getStringCellValue();
+                switch (j) {
+                    case 0 -> activity.setName(cellValue);
+                    case 1 -> activity.setStartDate(cellValue);
+                    case 2 -> activity.setEndDate(cellValue);
+                    case 3 -> activity.setCost(cellValue);
+                    case 4 -> activity.setDescription(cellValue);
+                }
+            }
+            activityList.add(activity);
+        }
+        return activityList;
     }
 }

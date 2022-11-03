@@ -309,6 +309,48 @@
                 url = url.substring(0, url.length - 1);
                 window.location.href = url;
             });
+
+            // 页面加载时绑定导入按钮单击事件
+            $("#importActivityBtn").click(function () {
+                let fileEle = $("#activityFile");
+                let fileName = fileEle.val();
+                let suffix = fileName.substring(fileName.lastIndexOf(".") + 1).toLocaleLowerCase();
+                if (suffix !== "xls") {
+                    alert("只支持.xls文件");
+                    return;
+                }
+                let file = fileEle[0].files[0];
+                if (file.size > 1024*1024*5) {
+                    alert("文件大小不能超过5M");
+                    return;
+                }
+                // FormData是Ajax提供的接口，可以模拟键值对向后台提交数据
+                // FormData最大的优势是不但可以传输文本数据，还能提交二进制数据
+                let formData = new FormData();
+                formData.append("file", file);
+                // 发送Ajax请求
+                $.ajax({
+                    type: "POST",
+                    url: "workbench/activity/importActivity.do",
+                    data: formData,
+                    dataType: "json",
+                    processData: false, // 设置是否同一参数为字符串，默认是true
+                    contentType: false, // 设置是否同一参数内容类型为urlencoded编码数据，默认是true
+                    // urlencoded编码是以键值对的形式发送数据
+                    success: function (json) {
+                        if (json.code === "1") {
+                            alert("成功导入" + json.data + "条记录");
+                            // 关闭模态窗
+                            $("#importActivityModal").modal("hide");
+                            // 刷新市场活动列表
+                            selectActivityByConditionForPage(1, $("#turnPage").bs_pagination("getOption",
+                                "rowsPerPage"));
+                        } else {
+                            alert(json.message);
+                        }
+                    }
+                })
+            });
         });
 
         // 查询刷新市场活动列表及数据
