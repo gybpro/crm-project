@@ -32,4 +32,11 @@ public interface ActivityRemarkService {
      * @return
      */
     int deleteActivityRemarkById(String id);
+
+    /**
+     * 修改市场活动备注信息功能
+     * @param remark
+     * @return
+     */
+    int updateActivityRemark(ActivityRemark remark);
 }

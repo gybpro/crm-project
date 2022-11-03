@@ -66,4 +66,26 @@ public class ActivityRemarkController {
         }
         return resultDTO;
     }
+
+    @RequestMapping("/updateRemark.do")
+    @ResponseBody
+    public ResultDTO updateRemark(String id, String noteContent, HttpSession session) {
+        User user = (User) session.getAttribute(Constant.SESSION_USER);
+        ActivityRemark remark = new ActivityRemark();
+        remark.setId(id);
+        remark.setNoteContent(noteContent);
+        remark.setEditTime(DateUtil.formatDateTime(new Date()));
+        remark.setEditBy(user.getId());
+        remark.setEditFlag("1");
+        ResultDTO resultDTO = new ResultDTO();
+        if (activityRemarkService.updateActivityRemark(remark) > 0) {
+            resultDTO.setCode(Constant.RESULT_DTO_CODE_SUCCESS);
+            resultDTO.setMessage("修改成功");
+            resultDTO.setData(remark);
+        } else {
+            resultDTO.setCode(Constant.RESULT_DTO_CODE_FAIL);
+            resultDTO.setMessage("系统忙，请稍后重试......");
+        }
+        return resultDTO;
+    }
 }

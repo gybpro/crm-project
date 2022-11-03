@@ -193,4 +193,13 @@
         from tbl_activity_remark
         where id = #{id,jdbcType=CHAR}
     </delete>
+
+    <update id="updateActivityRemark" parameterType="activityRemark">
+        update tbl_activity_remark
+        set note_content=#{noteContent},
+            edit_time=#{editTime},
+            edit_by=#{editBy},
+            edit_flag=#{editFlag}
+        where id = #{id}
+    </update>
 </mapper>
