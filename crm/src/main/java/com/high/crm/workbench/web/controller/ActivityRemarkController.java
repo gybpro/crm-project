@@ -52,4 +52,18 @@ public class ActivityRemarkController {
         }
         return resultDTO;
     }
+
+    @RequestMapping("/deleteRemarkById.do")
+    @ResponseBody
+    public ResultDTO deleteRemarkById(String id) {
+        ResultDTO resultDTO = new ResultDTO();
+        if (activityRemarkService.deleteActivityRemarkById(id) > 0) {
+            resultDTO.setCode(Constant.RESULT_DTO_CODE_SUCCESS);
+            resultDTO.setMessage("删除成功");
+        } else {
+            resultDTO.setCode(Constant.RESULT_DTO_CODE_FAIL);
+            resultDTO.setMessage("系统忙，请稍后重试......");
+        }
+        return resultDTO;
+    }
 }

@@ -184,7 +184,13 @@
 
     <insert id="insertActivityRemark" parameterType="activityRemark">
         insert into tbl_activity_remark(id, note_content, create_time, create_by, edit_flag, activity_id)
-values (#{id,jdbcType=CHAR}, #{noteContent,jdbcType=VARCHAR}, #{createTime,jdbcType=CHAR},
-        #{createBy,jdbcType=VARCHAR}, #{editFlag,jdbcType=CHAR}, #{activityId,jdbcType=CHAR})
+        values (#{id,jdbcType=CHAR}, #{noteContent,jdbcType=VARCHAR}, #{createTime,jdbcType=CHAR},
+                #{createBy,jdbcType=VARCHAR}, #{editFlag,jdbcType=CHAR}, #{activityId,jdbcType=CHAR})
     </insert>
+
+    <delete id="deleteActivityRemarkById" parameterType="string">
+        delete
+        from tbl_activity_remark
+        where id = #{id,jdbcType=CHAR}
+    </delete>
 </mapper>

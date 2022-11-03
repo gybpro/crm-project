@@ -14,7 +14,7 @@
 
     <script type="text/javascript">
 
-        //默认情况下取消和保存按钮是隐藏的
+        // 默认情况下取消和保存按钮是隐藏的
         let cancelAndSaveBtnDefault = true;
 
         $(function () {
@@ -36,29 +36,35 @@
                 cancelAndSaveBtnDefault = true;
             });
 
-            $(".remarkDiv").mouseover(function () {
+            /*$(".remarkDiv").mouseover(function () {
+                $(this).children("div").children("div").show();
+            });*/
+            $("#remarkDivList").on("mouseover",".remarkDiv",function () {
                 $(this).children("div").children("div").show();
             });
 
-            $(".remarkDiv").mouseout(function () {
+            /*$(".remarkDiv").mouseout(function () {
+                $(this).children("div").children("div").hide();
+            });*/
+            $("#remarkDivList").on("mouseout",".remarkDiv",function () {
                 $(this).children("div").children("div").hide();
             });
 
             /*$(".myHref").mouseover(function(){
                 $(this).children("span").css("color","red");
             });*/
-            $("#remarkDiv").on("mouseover", ".myHref", function () {
+            $("#remarkDivList").on("mouseover", ".myHref", function () {
                 $(this).children("span").css("color", "red");
             });
 
             /*$(".myHref").mouseout(function(){
                 $(this).children("span").css("color","#E6E6E6");
             });*/
-            $("#remarkDiv").on("mouseout", ".myHref", function () {
+            $("#remarkDivList").on("mouseout", ".myHref", function () {
                 $(this).children("span").css("color", "#E6E6E6");
             });
 
-            //给"保存"按钮添加单击事件
+            // 给"保存"按钮添加单击事件
             $("#saveBtn").click(function () {
                 //收集参数
                 let noteContent = $.trim($("#remark").val());
@@ -102,6 +108,32 @@
                         }
                     }
                 });
+            });
+
+            //给所有的"删除"图标添加单击事件
+            $("#remarkDivList").on("click", "a[name='deleteA']", function () {
+                if (confirm("是否确定删除？")) {
+                    //收集参数
+                    let id = $(this).attr("remarkId");
+                    //发送请求
+                    $.ajax({
+                        url: 'workbench/activity/deleteRemarkById.do',
+                        data: {
+                            id: id
+                        },
+                        type: 'post',
+                        dataType: 'json',
+                        success: function (data) {
+                            if (data.code === "1") {
+                                //刷新备注列表
+                                $("#div_" + id).remove();
+                            } else {
+                                //提示信息
+                                alert(data.message);
+                            }
+                        }
+                    });
+                }
             });
         });
     </script>
@@ -207,7 +239,7 @@
 </div>
 
 <!-- 备注 -->
-<div style="position: relative; top: 30px; left: 40px;">
+<div id="remarkDivList" style="position: relative; top: 30px; left: 40px;">
     <div class="page-header">
         <h4>备注</h4>
     </div>

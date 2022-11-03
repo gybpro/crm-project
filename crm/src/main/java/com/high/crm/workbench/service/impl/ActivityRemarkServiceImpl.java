@@ -31,4 +31,9 @@ public class ActivityRemarkServiceImpl implements ActivityRemarkService {
     public int insertActivityRemark(ActivityRemark remark) {
         return activityRemarkMapper.insertActivityRemark(remark);
     }
+
+    @Override
+    public int deleteActivityRemarkById(String id) {
+        return activityRemarkMapper.deleteActivityRemarkById(id);
+    }
 }
