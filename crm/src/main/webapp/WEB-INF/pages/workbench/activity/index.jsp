@@ -29,7 +29,6 @@
     <script type="text/javascript" src="jquery/bs_pagination-master/localization/en.js"></script>
 
     <script type="text/javascript">
-
         $(function () {
             // 页面加载时刷新市场活动数据
             selectActivityByConditionForPage(1, 5);
@@ -361,7 +360,7 @@
         });
 
         // 跳转详情页函数
-        function detail(id) {
+        function toDetail(id) {
             window.location = "workbench/activity/detail.do?id=" + id;
         }
 
@@ -390,7 +389,7 @@
                     $.each(json.data.activityList, function (index, obj) {
                         html += "<tr class=\"active\">";
                         html += "<td><input type=\"checkbox\" value='" + obj.id + "'/></td>";
-                        html += "<td>" + "<a onclick=\"detail(" + obj.id  + ")\">" + obj.name + "</a>" + "</td>";
+                        html += "<td>" + "<a onclick=\"toDetail('" + obj.id  + "')\">" + obj.name + "</a>" + "</td>";
                         html += "<td>" + obj.owner + "</td>";
                         html += "<td>" + obj.startDate + "</td>";
                         html += "<td>" + obj.endDate + "</td>";

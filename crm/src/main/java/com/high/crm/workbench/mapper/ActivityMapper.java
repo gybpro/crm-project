@@ -99,4 +99,11 @@ public interface ActivityMapper {
      * @return
      */
     int insertActivityByList(List<Activity> activityList);
+
+    /**
+     * 查询市场活动详细信息
+     * @param id
+     * @return
+     */
+    Activity selectActivityForDetailById(String id);
 }

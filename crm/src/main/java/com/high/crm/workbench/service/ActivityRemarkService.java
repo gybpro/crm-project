@@ -1,0 +1,21 @@
+package com.high.crm.workbench.service;
+
+import com.high.crm.workbench.domain.ActivityRemark;
+
+import java.util.List;
+
+/**
+ * @Classname ActivityRemarkService
+ * @Description 市场活动备注信息相关业务接口
+ * @Author high
+ * @Create 2022/11/3 19:35
+ * @Version 1.0
+ */
+public interface ActivityRemarkService {
+    /**
+     * 根据市场活动id查询相关备注信息
+     * @param activityId
+     * @return
+     */
+    List<ActivityRemark> selectActivityRemarkByActivityId(String activityId);
+}

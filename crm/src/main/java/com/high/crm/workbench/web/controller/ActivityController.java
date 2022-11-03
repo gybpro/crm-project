@@ -8,6 +8,8 @@ import com.high.crm.commons.util.UUIDUtil;
 import com.high.crm.settings.domain.User;
 import com.high.crm.settings.service.UserService;
 import com.high.crm.workbench.domain.Activity;
+import com.high.crm.workbench.domain.ActivityRemark;
+import com.high.crm.workbench.service.ActivityRemarkService;
 import com.high.crm.workbench.service.ActivityService;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -43,9 +45,12 @@ public class ActivityController extends HttpServlet {
 
     private final ActivityService activityService;
 
-    public ActivityController(UserService userService, ActivityService activityService) {
+    private final ActivityRemarkService activityRemarkService;
+
+    public ActivityController(UserService userService, ActivityService activityService, ActivityRemarkService activityRemarkService) {
         this.userService = userService;
         this.activityService = activityService;
+        this.activityRemarkService = activityRemarkService;
     }
 
     @RequestMapping("/index.do")
@@ -211,7 +216,11 @@ public class ActivityController extends HttpServlet {
     }
 
     @RequestMapping("/detail.do")
-    public String detail() {
+    public String detail(String id, HttpServletRequest request) {
+        Activity activity = activityService.selectActivityForDetailById(id);
+        List<ActivityRemark> remarkList = activityRemarkService.selectActivityRemarkByActivityId(id);
+        request.setAttribute("activity", activity);
+        request.setAttribute("remarkList", remarkList);
         return "workbench/activity/detail";
     }
 }
