@@ -211,7 +211,7 @@
                 and a.end_date &lt;= #{endDate}
             </if>
         </where>
-        order by a.start_date desc
+        order by a.start_date desc, a.create_time desc
         limit #{beginNo}, #{pageSize}
     </select>
 
@@ -292,7 +292,7 @@
                  join tbl_user u1 on a.owner = u1.id
                  join tbl_user u2 on a.create_by = u2.id
                  left join tbl_user u3 on a.edit_by = u3.id
-        order by a.start_date desc
+        order by a.start_date desc, a.create_time desc
     </select>
 
     <select id="selectActivityByIds" parameterType="string" resultMap="BaseResultMap">
@@ -307,6 +307,6 @@
             #{id}
         </foreach>
         )
-        order by a.start_date desc
+        order by a.start_date desc, a.create_time desc
     </select>
 </mapper>
