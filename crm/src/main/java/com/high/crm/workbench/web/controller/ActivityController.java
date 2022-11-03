@@ -33,7 +33,7 @@ import java.util.Map;
 
 /**
  * @Classname ActivityController
- * @Description 市场活动界面控制
+ * @Description 市场活动相关控制
  * @Author high
  * @Create 2022/10/31 21:41
  * @Version 1.0

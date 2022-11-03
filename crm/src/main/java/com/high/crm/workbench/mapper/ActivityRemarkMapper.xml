@@ -181,4 +181,10 @@
         where ar.activity_id = #{activityId}
         order by ar.create_time desc
     </select>
+
+    <insert id="insertActivityRemark" parameterType="activityRemark">
+        insert into tbl_activity_remark(id, note_content, create_time, create_by, edit_flag, activity_id)
+values (#{id,jdbcType=CHAR}, #{noteContent,jdbcType=VARCHAR}, #{createTime,jdbcType=CHAR},
+        #{createBy,jdbcType=VARCHAR}, #{editFlag,jdbcType=CHAR}, #{activityId,jdbcType=CHAR})
+    </insert>
 </mapper>
