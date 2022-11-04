@@ -318,12 +318,40 @@
     </insert>
 
     <select id="selectActivityForDetailById" parameterType="string" resultMap="BaseResultMap">
-        select a.id, a.name, u1.name as owner, a.start_date, a.end_date, a.cost, a.description, a.create_time,
-               u2.name as create_by, a.edit_time, u3.name as edit_by
+        select a.id,
+               a.name,
+               u1.name as owner,
+               a.start_date,
+               a.end_date,
+               a.cost,
+               a.description,
+               a.create_time,
+               u2.name as create_by,
+               a.edit_time,
+               u3.name as edit_by
         from tbl_activity a
-        join tbl_user u1 on a.owner = u1.id
-        join tbl_user u2 on a.create_by = u2.id
-        left join tbl_user u3 on a.edit_by = u3.id
+                 join tbl_user u1 on a.owner = u1.id
+                 join tbl_user u2 on a.create_by = u2.id
+                 left join tbl_user u3 on a.edit_by = u3.id
         where a.id = #{id}
+    </select>
+
+    <select id="selectActivityByClueId" parameterType="string" resultMap="BaseResultMap">
+        select a.id, a.name, a.start_date, a.end_date, u.name as owner
+        from tbl_activity a
+                 join tbl_user u on a.owner = u.id
+                 join tbl_clue_activity_relation car on a.id = car.activity_id
+        where car.clue_id = #{clueId}
+    </select>
+
+    <select id="selectActivityByNameAndClueId" parameterType="map" resultMap="BaseResultMap">
+        select a.id, a.name, a.start_date, a.end_date, u.name as owner
+        from tbl_activity a
+                 join tbl_user u on a.owner = u.id
+        where a.name like '%' #{activityName} '%' and a.id not in (
+         select activity_id
+         from tbl_clue_activity_relation
+         where clue_id=#{clueId}
+            )
     </select>
 </mapper>

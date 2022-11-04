@@ -81,4 +81,18 @@ public interface ActivityService {
      * @return
      */
     Activity selectActivityForDetailById(String id);
+
+    /**
+     * 根据线索id查询市场活动
+     * @param clueId
+     * @return
+     */
+    List<Activity> selectActivityByClueId(String clueId);
+
+    /**
+     * 根据市场活动名和线索id查询市场活动，模糊查询加排除已关联市场活动
+     * @param map
+     * @return
+     */
+    List<Activity> selectActivityByNameAndClueId(Map<String, Object> map);
 }

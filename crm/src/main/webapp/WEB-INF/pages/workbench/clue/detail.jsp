@@ -64,8 +64,10 @@
                 $(this).children("span").css("color", "#E6E6E6");
             });
 
+
+
             //给"关联市场活动"按钮添加单击事件
-            $("#bundActivityBtn").click(function () {
+            $("#bindActivityBtn").click(function () {
                 //初始化工作
                 //清空搜索框
                 $("#searchActivityTxt").val("");
@@ -73,7 +75,7 @@
                 $("#tBody").html("");
 
                 //弹出"线索关联市场活动"的模态窗口
-                $("#bundModal").modal("show");
+                $("#bindModal").modal("show");
             });
 
             //给市场活动搜索框添加键盘弹起事件
@@ -83,17 +85,17 @@
                 let clueId = '${clue.id}';
                 //发送请求
                 $.ajax({
-                    url: 'workbench/clue/queryActivityForDetailByNameClueId.do',
+                    url: 'workbench/clue/selectActivityByNameAndClueId.do',
                     data: {
                         activityName: activityName,
                         clueId: clueId
                     },
                     type: 'post',
                     dataType: 'json',
-                    success: function (data) {
+                    success: function (json) {
                         //遍历data，显示搜索到的市场活动列表
                         let htmlStr = "";
-                        $.each(data, function (index, obj) {
+                        $.each(json, function (index, obj) {
                             htmlStr += "<tr>";
                             htmlStr += "<td><input type=\"checkbox\" value=\"" + obj.id + "\"/></td>";
                             htmlStr += "<td>" + obj.name + "</td>";
@@ -108,31 +110,31 @@
             });
 
             //给"关联"按钮添加单击事件
-            $("#saveBundActivityBtn").click(function () {
+            $("#saveBindActivityBtn").click(function () {
                 //收集参数
                 //获取列表中所有被选中的checkbox
-                let chckedIds = $("#tBody input[type='checkbox']:checked");
+                let checkedIds = $("#tBody input[type='checkbox']:checked");
                 //表单验证
-                if (chckedIds.size() === 0) {
+                if (checkedIds.size() === 0) {
                     alert("请选择要关联的市场活动");
                     return;
                 }
                 let ids = "";
-                $.each(chckedIds, function () {//activityId=xxxx&activityId=xxxx&....&activityId=xxxx&
+                $.each(checkedIds, function () {
                     ids += "activityId=" + this.value + "&";
                 });
-                ids += "clueId=${clue.id}";//activityId=xxxx&activityId=xxxx&....&activityId=xxxx&clueId=xxxxx
+                ids += "clueId=${clue.id}";//activityId=xxx&activityId=xxx&....&activityId=xxx&clueId=xxx
 
                 //发送请求
                 $.ajax({
-                    url: 'workbench/clue/saveBund.do',
+                    url: 'workbench/clue/saveBind.do',
                     data: ids,
                     type: 'post',
                     dataType: 'json',
                     success: function (json) {
                         if (json.code === "1") {
                             //关闭模态窗口
-                            $("#bundModal").modal("hide");
+                            $("#bindModal").modal("hide");
                             //刷新已经关联过的市场活动列表
                             let htmlStr = "";
                             $.each(json.data, function (index, obj) {
@@ -144,19 +146,19 @@
                                 htmlStr += "<td><a href=\"javascript:void(0);\" activityId=\"" + obj.id + "\"  style=\"text-decoration: none;\"><span class=\"glyphicon glyphicon-remove\"></span>解除关联</a></td>";
                                 htmlStr += "</tr>";
                             });
-                            $("#relationedTBody").append(htmlStr);
+                            $("#relationTBody").append(htmlStr);
                         } else {
                             //提示信息
                             alert(json.message);
                             //模态窗口不关闭
-                            $("#bundModal").modal("show");
+                            $("#bindModal").modal("show");
                         }
                     }
                 });
             });
 
             //给所有的"解除关联"按钮添加单击事件
-            $("#relationedTBody").on("click", "a", function () {
+            $("#relationTBody").on("click", "a", function () {
                 //收集参数
                 let activityId = $(this).attr("activityId");
                 let clueId = "${clue.id}";
@@ -164,7 +166,7 @@
                 if (window.confirm("确定删除吗？")) {
                     //发送请求
                     $.ajax({
-                        url: 'workbench/clue/saveUnbund.do',
+                        url: 'workbench/clue/relieveBind.do',
                         data: {
                             activityId: activityId,
                             clueId: clueId
@@ -199,7 +201,7 @@
 <body>
 
 <!-- 关联市场活动的模态窗口 -->
-<div class="modal fade" id="bundModal" role="dialog">
+<div class="modal fade" id="bindModal" role="dialog">
     <div class="modal-dialog" role="document" style="width: 80%;">
         <div class="modal-content">
             <div class="modal-header">
@@ -249,7 +251,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-primary" id="saveBundActivityBtn">关联</button>
+                <button type="button" class="btn btn-primary" id="saveBindActivityBtn">关联</button>
             </div>
         </div>
     </div>
@@ -507,7 +509,7 @@
                     <td></td>
                 </tr>
                 </thead>
-                <tbody id="relationedTBody">
+                <tbody id="relationTBody">
                 <c:forEach items="${activityList}" var="act">
                     <tr id="tr_${act.id}">
                         <td>${act.name}</td>
@@ -537,7 +539,7 @@
         </div>
 
         <div>
-            <a href="javascript:void(0);" id="bundActivityBtn" style="text-decoration: none;"><span
+            <a href="javascript:void(0);" id="bindActivityBtn" style="text-decoration: none;"><span
                     class="glyphicon glyphicon-plus"></span>关联市场活动</a>
         </div>
     </div>
