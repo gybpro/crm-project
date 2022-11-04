@@ -18,16 +18,21 @@
     <link href="jquery/bootstrap_3.3.0/css/bootstrap.min.css" type="text/css" rel="stylesheet"/>
     <link href="jquery/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css" type="text/css"
           rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="jquery/bs_pagination-master/css/jquery.bs_pagination.min.css">
 
     <script type="text/javascript" src="jquery/jquery-1.11.1-min.js"></script>
     <script type="text/javascript" src="jquery/bootstrap_3.3.0/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="jquery/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.js"></script>
     <script type="text/javascript"
             src="jquery/bootstrap-datetimepicker-master/locale/bootstrap-datetimepicker.zh-CN.js"></script>
+    <script type="text/javascript" src="jquery/bs_pagination-master/js/jquery.bs_pagination.min.js"></script>
+    <script type="text/javascript" src="jquery/bs_pagination-master/localization/en.js"></script>
 
     <script type="text/javascript">
 
         $(function () {
+            selectClueByConditionForPage(1, 5);
+
             //给"创建"按钮添加单击事件
             $("#createClueBtn").click(function () {
                 //初始化工作
@@ -69,25 +74,32 @@
                 }
                 //正则表达式验证
                 let regExp = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
+                if (email !== "") {
                 if (!regExp.test(email)) {
                     alert("邮箱格式不正确");
                     return;
                 }
-                regExp = /\d{3}-\d{8}|\d{4}-\d{7}/;
-                if (!regExp.test(phone)) {
-                    alert("公司座机格式不正确");
-                    return;
                 }
+                regExp = /\d{3}-\d{8}|\d{4}-\d{7}/;
+                if (phone !== "") {
+                    if (!regExp.test(phone)) {
+                        alert("公司座机格式不正确");
+                        return;
+                    }
+                }
+
                 regExp = /[a-zA-Z0-9][-a-zA-Z0-9]{0,62}(\/.[a-zA-Z0-9][-a-zA-Z0-9]{0,62})+\/.?/;
+                if (website !== "") {
                 if (!regExp.test(website)) {
                     alert("公司网站格式不正确");
                     return;
-                }
+                }}
                 regExp = /^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$/;
+                if (mPhone !== "") {
                 if (!regExp.test(mPhone)) {
                     alert("手机格式不正确");
                     return;
-                }
+                }}
                 if (state === "") {
                     alert("线索状态不能为空");
                     return;
@@ -99,7 +111,7 @@
 
                 //发送请求
                 $.ajax({
-                    url: 'workbench/clue/insertClue.do',
+                    url: 'workbench/clue/insert.do',
                     data: {
                         fullName: fullName,
                         appellation: appellation,
@@ -124,7 +136,8 @@
                             //关闭模态窗口
                             $("#createClueModal").modal("hide");
                             //刷新线索列表，显示第一页数据，保持每页显示条数不变
-
+                            selectClueByConditionForPage(1, $("#turnPage").bs_pagination("getOption",
+                                'rowsPerPage'));
                         } else {
                             //提示信息
                             alert(json.message);
@@ -161,12 +174,13 @@
                     phone: phone,
                     mPhone: mPhone,
                     state: state,
-                    source: source
+                    source: source,
+                    pageNo: pageNo,
+                    pageSize: pageSize
                 },
                 dataType: "json",
                 async: true,
                 success: function (json) {
-                    // $("#totalRows").text(data.data.totalRows);
                     let html = "";
                     $.each(json.data.clueList, function (index, obj) {
                         html += "<tr class=\"active\">";
@@ -613,7 +627,7 @@
                     <td>线索状态</td>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody id="tBody">
                 <%--<tr>
                     <td><input type="checkbox"/></td>
                     <td><a style="text-decoration: none; cursor: pointer;"
@@ -639,9 +653,10 @@
                 </tr>--%>
                 </tbody>
             </table>
+            <div id="turnPage"></div>
         </div>
 
-        <div style="height: 50px; position: relative;top: 60px;">
+        <%--<div style="height: 50px; position: relative;top: 60px;">
             <div>
                 <button type="button" class="btn btn-default" style="cursor: default;">共<b>50</b>条记录</button>
             </div>
@@ -674,7 +689,7 @@
                     </ul>
                 </nav>
             </div>
-        </div>
+        </div>--%>
 
     </div>
 

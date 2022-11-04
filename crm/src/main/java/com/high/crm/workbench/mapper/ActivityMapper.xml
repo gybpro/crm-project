@@ -218,7 +218,6 @@
         from tbl_activity a
         join tbl_user u1 on a.owner = u1.id
         join tbl_user u2 on a.create_by = u2.id
-        left join tbl_user u3 on a.edit_by = u3.id
         <where>
             <if test='name != null and name !="" '>
                 and a.name like '%' #{name} '%'
