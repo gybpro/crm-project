@@ -326,9 +326,9 @@
 
     <select id="selectClueByConditionForPage" parameterType="map" resultMap="BaseResultMap">
         select c.id, u1.name as owner,
-        c.full_name, dv1.text as appellation,
-        c.company, c.phone, c.m_phone, dv2.text as state,
-        dv3.text as source, c.create_time, u2.name as create_by
+        c.full_name, dv1.value as appellation,
+        c.company, c.phone, c.m_phone, dv2.value as state,
+        dv3.value as source, c.create_time, u2.name as create_by
         from tbl_clue c
         join tbl_user u1 on c.owner = u1.id
         join tbl_user u2 on c.create_by = u2.id
@@ -337,7 +337,7 @@
         left join tbl_dic_value dv1 on c.appellation = dv1.id
         <where>
             <if test='name != null and name !="" '>
-                and CONCAT(IFNULL(c.full_name,''), IFNULL(dv1.text,'')) LIKE '%' #{name} '%'
+                and CONCAT(IFNULL(c.full_name,''), IFNULL(dv1.value,'')) LIKE '%' #{name} '%'
             </if>
             <if test='company != null and company !="" '>
                 and c.company like '%' #{company} '%'
@@ -349,10 +349,10 @@
                 and c.m_phone like '%' #{m_phone} '%'
             </if>
             <if test='state != null and state !="" '>
-                and dv2.text like '%' #{state} '%'
+                and dv2.value like '%' #{state} '%'
             </if>
             <if test='source != null and source !="" '>
-                and dv3.text like '%' #{source} '%'
+                and dv3.value like '%' #{source} '%'
             </if>
             <if test='owner != null and owner !="" '>
                 and u1.name like '%' #{owner} '%'
@@ -372,7 +372,7 @@
         left join tbl_dic_value dv1 on c.appellation = dv1.id
         <where>
             <if test='name != null and name !="" '>
-                and CONCAT(IFNULL(c.full_name,''), IFNULL(dv1.text,'')) LIKE '%' #{name} '%'
+                and CONCAT(IFNULL(c.full_name,''), IFNULL(dv1.value,'')) LIKE '%' #{name} '%'
             </if>
             <if test='company != null and company !="" '>
                 and c.company like '%' #{company} '%'
@@ -384,10 +384,10 @@
                 and c.m_phone like '%' #{m_phone} '%'
             </if>
             <if test='state != null and state !="" '>
-                and dv2.text like '%' #{state} '%'
+                and dv2.value like '%' #{state} '%'
             </if>
             <if test='source != null and source !="" '>
-                and dv3.text like '%' #{source} '%'
+                and dv3.value like '%' #{source} '%'
             </if>
             <if test='owner != null and owner !="" '>
                 and u1.name like '%' #{owner} '%'
@@ -395,5 +395,36 @@
         </where>
         order by c.create_time desc
         limit #{beginNo}, #{pageSize}
+    </select>
+
+    <select id="selectClueForDetailById" parameterType="string" resultMap="BaseResultMap">
+        select c.id,
+               u1.name   as owner,
+               c.full_name,
+               dv1.value as appellation,
+               c.company,
+               c.job,
+               c.email,
+               c.phone,
+               c.m_phone,
+               dv2.value as state,
+               dv3.value as source,
+               c.website,
+               u3.name   as edit_by,
+               c.edit_time,
+               c.create_time,
+               u2.name   as create_by,
+               c.description,
+               c.contact_summary,
+               c.next_contact_time,
+               c.address
+        from tbl_clue c
+                 join tbl_user u1 on c.owner = u1.id
+                 join tbl_user u2 on c.create_by = u2.id
+                 left join tbl_user u3 on c.edit_by = u3.id
+                 join tbl_dic_value dv2 on c.state = dv2.id
+                 join tbl_dic_value dv3 on c.source = dv3.id
+                 left join tbl_dic_value dv1 on c.appellation = dv1.id
+        where c.id = #{id}
     </select>
 </mapper>

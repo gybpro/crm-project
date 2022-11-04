@@ -9,6 +9,8 @@ import com.high.crm.settings.domain.User;
 import com.high.crm.settings.service.DicValueService;
 import com.high.crm.settings.service.UserService;
 import com.high.crm.workbench.domain.Clue;
+import com.high.crm.workbench.domain.ClueRemark;
+import com.high.crm.workbench.service.ClueRemarkService;
 import com.high.crm.workbench.service.ClueService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,11 +37,14 @@ public class ClueController {
 
     private final ClueService clueService;
 
+    private final ClueRemarkService clueRemarkService;
+
     private final DicValueService dicValueService;
 
-    public ClueController(UserService userService, ClueService clueService, DicValueService dicValueService) {
+    public ClueController(UserService userService, ClueService clueService, ClueRemarkService clueRemarkService, DicValueService dicValueService) {
         this.userService = userService;
         this.clueService = clueService;
+        this.clueRemarkService = clueRemarkService;
         this.dicValueService = dicValueService;
     }
 
@@ -112,5 +117,14 @@ public class ClueController {
             resultDTO.setMessage("系统忙，请稍后重试......");
         }
         return resultDTO;
+    }
+
+    @RequestMapping("/detail.do")
+    public String detail(String id, HttpServletRequest request) {
+        Clue clue = clueService.selectClueForDetailById(id);
+        List<ClueRemark> remarkList = clueRemarkService.selectClueRemarkByClueId(id);
+        request.setAttribute("clue", clue);
+        request.setAttribute("remarkList", remarkList);
+        return "workbench/clue/detail";
     }
 }

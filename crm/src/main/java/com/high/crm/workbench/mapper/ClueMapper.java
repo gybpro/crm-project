@@ -75,4 +75,11 @@ public interface ClueMapper {
      * @return
      */
     int selectCountOfClueByCondition(Map<String, Object> map);
+
+    /**
+     * 根据id查询线索详细信息
+     * @param id
+     * @return
+     */
+    Clue selectClueForDetailById(String id);
 }

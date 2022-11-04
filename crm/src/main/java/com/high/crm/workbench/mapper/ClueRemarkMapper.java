@@ -1,6 +1,9 @@
 package com.high.crm.workbench.mapper;
 
+import com.high.crm.workbench.domain.Clue;
 import com.high.crm.workbench.domain.ClueRemark;
+
+import java.util.List;
 
 public interface ClueRemarkMapper {
     /**
@@ -50,4 +53,11 @@ public interface ClueRemarkMapper {
      * @mbg.generated Fri Nov 04 14:27:01 CST 2022
      */
     int updateByPrimaryKey(ClueRemark row);
+
+    /**
+     * 根据线索id查询备注信息
+     * @param clueId
+     * @return
+     */
+    List<ClueRemark> selectClueRemarkByClueId(String clueId);
 }

@@ -1,5 +1,6 @@
 package com.high.crm.workbench.service.impl;
 
+import com.high.crm.workbench.domain.Activity;
 import com.high.crm.workbench.domain.Clue;
 import com.high.crm.workbench.mapper.ClueMapper;
 import com.high.crm.workbench.service.ClueService;
@@ -36,5 +37,10 @@ public class ClueServiceImpl implements ClueService {
     @Override
     public int selectCountOfClueByCondition(Map<String, Object> map) {
         return clueMapper.selectCountOfClueByCondition(map);
+    }
+
+    @Override
+    public Clue selectClueForDetailById(String id) {
+        return clueMapper.selectClueForDetailById(id);
     }
 }
