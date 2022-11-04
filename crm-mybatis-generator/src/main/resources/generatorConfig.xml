@@ -43,10 +43,10 @@
         -->
         <!--注意：使用时记得换包路径，需要在哪生成就开哪个，不要的记得注释，否则原文件有可能被覆盖-->
         <!--注意：这种路径有三个，bean类，mapper接口，mapper.xml文件-->
-        <!--<javaModelGenerator targetPackage="com.high.crm.settings.domain"
-                            targetProject="E:/Project/JavaProjects/crm-project/crm/src/main/java">-->
-        <javaModelGenerator targetPackage="com.high.crm.workbench.domain"
+        <javaModelGenerator targetPackage="com.high.crm.settings.domain"
                             targetProject="E:/Project/JavaProjects/crm-project/crm/src/main/java">
+        <!--<javaModelGenerator targetPackage="com.high.crm.workbench.domain"
+                            targetProject="E:/Project/JavaProjects/crm-project/crm/src/main/java">-->
 
             <!-- 是否允许子包，即targetPackage.schemaName.tableName -->
             <property name="enableSubPackages" value="false"/>
@@ -59,10 +59,10 @@
         </javaModelGenerator>
 
         <!--Mapper映射文件生成所在的目录 为每一个数据库的表生成对应的SqlMap文件 -->
-        <!--<sqlMapGenerator targetPackage="com.high.crm.settings.mapper"
-                         targetProject="E:/Project/JavaProjects/crm-project/crm/src/main/java">-->
-        <sqlMapGenerator targetPackage="com.high.crm.workbench.mapper"
+        <sqlMapGenerator targetPackage="com.high.crm.settings.mapper"
                          targetProject="E:/Project/JavaProjects/crm-project/crm/src/main/java">
+        <!--<sqlMapGenerator targetPackage="com.high.crm.workbench.mapper"
+                         targetProject="E:/Project/JavaProjects/crm-project/crm/src/main/java">-->
             <property name="enableSubPackages" value="false"/>
         </sqlMapGenerator>
 
@@ -71,11 +71,10 @@
                 type="MIXEDMAPPER",生成基于注解的Java Model 和相应的Mapper对象
                 type="XMLMAPPER",生成SQLMap XML文件和独立的Mapper接口
         -->
-        <!--<javaClientGenerator targetPackage="com.high.crm.settings.mapper"
+        <javaClientGenerator targetPackage="com.high.crm.settings.mapper"
                              targetProject="E:/Project/JavaProjects/crm-project/crm/src/main/java" type="XMLMAPPER">
-            <property name="enableSubPackages" value="true"/>-->
-        <javaClientGenerator targetPackage="com.high.crm.workbench.mapper"
-                             targetProject="E:/Project/JavaProjects/crm-project/crm/src/main/java" type="XMLMAPPER">
+        <!--<javaClientGenerator targetPackage="com.high.crm.workbench.mapper"
+                             targetProject="E:/Project/JavaProjects/crm-project/crm/src/main/java" type="XMLMAPPER">-->
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
@@ -139,7 +138,7 @@
         </table>-->
 
 
-        <!--<table tableName="tbl_dictionary_value" domainObjectName="DictionaryValue"
+        <!--<table tableName="tbl_dic_value" domainObjectName="DicValue"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">
