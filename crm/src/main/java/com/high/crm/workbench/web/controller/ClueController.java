@@ -151,31 +151,50 @@ public class ClueController {
 
     @RequestMapping("saveBind.do")
     @ResponseBody
-    public ResultDTO saveBind(String[] activityId,String clueId){
+    public ResultDTO saveBind(String[] activityId, String clueId) {
         //封装参数
-        ClueActivityRelation car=null;
-        List<ClueActivityRelation> relationList=new ArrayList<>();
-        for(String ai:activityId){
-            car=new ClueActivityRelation();
+        List<ClueActivityRelation> relationList = new ArrayList<>();
+        for (String ai : activityId) {
+            ClueActivityRelation car = new ClueActivityRelation();
             car.setActivityId(ai);
             car.setClueId(clueId);
             car.setId(UUIDUtil.getUUID());
             relationList.add(car);
         }
 
-        ResultDTO resultDTO=new ResultDTO();
+        ResultDTO resultDTO = new ResultDTO();
         try {
             //调用service方法，批量保存线索和市场活动的关联关系
-            if(clueActivityRelationService.insertClueActivityRelationByList(relationList)>0){
+            if (clueActivityRelationService.insertClueActivityRelationByList(relationList) > 0) {
                 resultDTO.setCode(Constant.RESULT_DTO_CODE_SUCCESS);
-                List<Activity> activityList=activityService.selectActivityByIds(activityId);
+                List<Activity> activityList = activityService.selectActivityByIds(activityId);
                 resultDTO.setMessage("关联成功");
                 resultDTO.setData(activityList);
-            }else{
+            } else {
                 resultDTO.setCode(Constant.RESULT_DTO_CODE_FAIL);
                 resultDTO.setMessage("系统忙，请稍后重试....");
             }
-        }catch (Exception e){
+        } catch (Exception e) {
+            e.printStackTrace();
+            resultDTO.setCode(Constant.RESULT_DTO_CODE_FAIL);
+            resultDTO.setMessage("系统忙，请稍后重试....");
+        }
+        return resultDTO;
+    }
+
+    @RequestMapping("/relieveBind.do")
+    @ResponseBody
+    public ResultDTO relieveBind(ClueActivityRelation relation) {
+        ResultDTO resultDTO = new ResultDTO();
+        try {
+            if (clueActivityRelationService.deleteClueActivityRelationByActivityIdAndClueId(relation) > 0) {
+                resultDTO.setCode(Constant.RESULT_DTO_CODE_SUCCESS);
+                resultDTO.setMessage("删除成功");
+            } else {
+                resultDTO.setCode(Constant.RESULT_DTO_CODE_FAIL);
+                resultDTO.setMessage("系统忙，请稍后重试....");
+            }
+        } catch (Exception e) {
             e.printStackTrace();
             resultDTO.setCode(Constant.RESULT_DTO_CODE_FAIL);
             resultDTO.setMessage("系统忙，请稍后重试....");

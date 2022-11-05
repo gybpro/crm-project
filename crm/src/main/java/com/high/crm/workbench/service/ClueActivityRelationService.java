@@ -15,8 +15,15 @@ import java.util.List;
 public interface ClueActivityRelationService {
     /**
      * 批量绑定线索和市场活动关系
-     * @param clueActivityRelationList
+     * @param relationList
      * @return
      */
-    int insertClueActivityRelationByList(List<ClueActivityRelation> clueActivityRelationList);
+    int insertClueActivityRelationByList(List<ClueActivityRelation> relationList);
+
+    /**
+     * 根据线索id和市场活动id删除线索与市场活动的关联
+     * @param relation
+     * @return
+     */
+    int deleteClueActivityRelationByActivityIdAndClueId(ClueActivityRelation relation);
 }

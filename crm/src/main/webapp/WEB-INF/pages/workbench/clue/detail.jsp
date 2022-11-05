@@ -173,13 +173,13 @@
                         },
                         type: 'post',
                         dataType: 'json',
-                        success: function (data) {
-                            if (data.code === "1") {
+                        success: function (json) {
+                            if (json.code === "1") {
                                 //刷新已经关联的市场活动列表
                                 $("#tr_" + activityId).remove();
                             } else {
                                 //提示信息
-                                alert(data.message);
+                                alert(json.message);
                             }
                         }
                     });
