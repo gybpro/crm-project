@@ -201,4 +201,13 @@ public class ClueController {
         }
         return resultDTO;
     }
+
+    @RequestMapping("/toConvert.do")
+    public String toConvert(String id, HttpServletRequest request) {
+        Clue clue = clueService.selectClueForDetailById(id);
+        List<DicValue> stageList = dicValueService.selectDicValueByTypeCode("stage");
+        request.setAttribute("clue", clue);
+        request.setAttribute("stageList", stageList);
+        return "workbench/clue/convert";
+    }
 }
