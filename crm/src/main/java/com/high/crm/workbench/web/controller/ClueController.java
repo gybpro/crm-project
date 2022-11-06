@@ -61,7 +61,7 @@ public class ClueController {
         List<DicValue> appellationList = dicValueService.selectDicValueByTypeCode("appellation");
         List<DicValue> clueStateList = dicValueService.selectDicValueByTypeCode("clueState");
         List<DicValue> sourceList = dicValueService.selectDicValueByTypeCode("source");
-        //把数据保存到request中
+        // 把数据保存到request中
         request.setAttribute("userList", userList);
         request.setAttribute("appellationList", appellationList);
         request.setAttribute("clueStateList", clueStateList);
@@ -99,6 +99,7 @@ public class ClueController {
     @RequestMapping("/select.do")
     @ResponseBody
     public ResultDTO select(String name, String owner, String company, String phone, String m_phone, String state, String source, int pageNo, int pageSize) {
+        // 封装参数
         Map<String, Object> map = new HashMap<>();
         map.put("name", name);
         map.put("owner", owner);
@@ -109,6 +110,7 @@ public class ClueController {
         map.put("source", source);
         map.put("beginNo", (pageNo - 1) * pageSize);
         map.put("pageSize", pageSize);
+        // 调用service层查询
         List<Clue> clueList = clueService.selectClueByConditionForPage(map);
         int totalRows = clueService.selectCountOfClueByCondition(map);
         ResultDTO resultDTO = new ResultDTO();
@@ -128,12 +130,16 @@ public class ClueController {
 
     @RequestMapping("/detail.do")
     public String detail(String id, HttpServletRequest request) {
+        // 封装参数
         Clue clue = clueService.selectClueForDetailById(id);
+        // 调用service层查询
         List<ClueRemark> remarkList = clueRemarkService.selectClueRemarkByClueId(id);
         List<Activity> activityList = activityService.selectActivityByClueId(id);
+        // 将结果装入请求域
         request.setAttribute("clue", clue);
         request.setAttribute("remarkList", remarkList);
         request.setAttribute("activityList", activityList);
+        // 转发
         return "workbench/clue/detail";
     }
 
@@ -154,9 +160,9 @@ public class ClueController {
     public ResultDTO saveBind(String[] activityId, String clueId) {
         //封装参数
         List<ClueActivityRelation> relationList = new ArrayList<>();
-        for (String ai : activityId) {
+        for (String id : activityId) {
             ClueActivityRelation car = new ClueActivityRelation();
-            car.setActivityId(ai);
+            car.setActivityId(id);
             car.setClueId(clueId);
             car.setId(UUIDUtil.getUUID());
             relationList.add(car);
@@ -187,6 +193,7 @@ public class ClueController {
     public ResultDTO relieveBind(ClueActivityRelation relation) {
         ResultDTO resultDTO = new ResultDTO();
         try {
+            // 调用service层删除
             if (clueActivityRelationService.deleteClueActivityRelationByActivityIdAndClueId(relation) > 0) {
                 resultDTO.setCode(Constant.RESULT_DTO_CODE_SUCCESS);
                 resultDTO.setMessage("删除成功");
@@ -204,10 +211,25 @@ public class ClueController {
 
     @RequestMapping("/toConvert.do")
     public String toConvert(String id, HttpServletRequest request) {
+        // 封装参数
         Clue clue = clueService.selectClueForDetailById(id);
+        // 调用service层查询
         List<DicValue> stageList = dicValueService.selectDicValueByTypeCode("stage");
+        // 将结果装入请求域
         request.setAttribute("clue", clue);
         request.setAttribute("stageList", stageList);
+        // 转发
         return "workbench/clue/convert";
+    }
+
+    @RequestMapping("/selectActivityForConvertByNameClueId.do")
+    @ResponseBody
+    public Object selectActivityForConvertByNameClueId(String activityName, String clueId) {
+        // 封装参数
+        Map<String, Object> map = new HashMap<>();
+        map.put("activityName", activityName);
+        map.put("clueId", clueId);
+        // 返回查询结果
+        return activityService.selectActivityForConvertByNameClueId(map);
     }
 }
