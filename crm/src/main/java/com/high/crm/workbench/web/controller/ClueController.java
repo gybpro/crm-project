@@ -8,10 +8,7 @@ import com.high.crm.settings.domain.DicValue;
 import com.high.crm.settings.domain.User;
 import com.high.crm.settings.service.DicValueService;
 import com.high.crm.settings.service.UserService;
-import com.high.crm.workbench.domain.Activity;
-import com.high.crm.workbench.domain.Clue;
-import com.high.crm.workbench.domain.ClueActivityRelation;
-import com.high.crm.workbench.domain.ClueRemark;
+import com.high.crm.workbench.domain.*;
 import com.high.crm.workbench.service.ActivityService;
 import com.high.crm.workbench.service.ClueActivityRelationService;
 import com.high.crm.workbench.service.ClueRemarkService;
@@ -133,7 +130,7 @@ public class ClueController {
         // 封装参数
         Clue clue = clueService.selectClueForDetailById(id);
         // 调用service层查询
-        List<ClueRemark> remarkList = clueRemarkService.selectClueRemarkByClueId(id);
+        List<Remark> remarkList = clueRemarkService.selectClueRemarkByClueId(id);
         List<Activity> activityList = activityService.selectActivityByClueId(id);
         // 将结果装入请求域
         request.setAttribute("clue", clue);
@@ -231,5 +228,31 @@ public class ClueController {
         map.put("clueId", clueId);
         // 返回查询结果
         return activityService.selectActivityForConvertByNameClueId(map);
+    }
+
+    @RequestMapping("/convertClue.do")
+    @ResponseBody
+    public ResultDTO convertClue(String clueId, String money, String name, String expectedDate, String stage,
+                                 String activityId, String isCreateTran, HttpSession session) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("clueId", clueId);
+        map.put("money", money);
+        map.put("name", name);
+        map.put("expectedDate", expectedDate);
+        map.put("stage", stage);
+        map.put("activityId", activityId);
+        map.put("isCreateTran", isCreateTran);
+        map.put(Constant.SESSION_USER, session.getAttribute(Constant.SESSION_USER));
+        ResultDTO resultDTO = new ResultDTO();
+        try {
+            clueService.convertClue(map);
+            resultDTO.setCode(Constant.RESULT_DTO_CODE_SUCCESS);
+            resultDTO.setMessage("转换成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            resultDTO.setCode(Constant.RESULT_DTO_CODE_FAIL);
+            resultDTO.setMessage("系统忙，请稍后重试....");
+        }
+        return resultDTO;
     }
 }

@@ -1,6 +1,9 @@
 package com.high.crm.workbench.mapper;
 
 import com.high.crm.workbench.domain.CustomerRemark;
+import com.high.crm.workbench.domain.Remark;
+
+import java.util.List;
 
 public interface CustomerRemarkMapper {
     /**
@@ -50,4 +53,11 @@ public interface CustomerRemarkMapper {
      * @mbg.generated Sun Nov 06 15:17:28 CST 2022
      */
     int updateByPrimaryKey(CustomerRemark row);
+
+    /**
+     * 批量添加客户备注信息
+     * @param list
+     * @return
+     */
+    int insertCustomerRemarkByList(List<Remark> list);
 }

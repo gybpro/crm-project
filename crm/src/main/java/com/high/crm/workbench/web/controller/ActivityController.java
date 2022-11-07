@@ -9,6 +9,7 @@ import com.high.crm.settings.domain.User;
 import com.high.crm.settings.service.UserService;
 import com.high.crm.workbench.domain.Activity;
 import com.high.crm.workbench.domain.ActivityRemark;
+import com.high.crm.workbench.domain.Remark;
 import com.high.crm.workbench.service.ActivityRemarkService;
 import com.high.crm.workbench.service.ActivityService;
 import org.springframework.stereotype.Controller;
@@ -214,7 +215,7 @@ public class ActivityController extends HttpServlet {
     @RequestMapping("/detail.do")
     public String detail(String id, HttpServletRequest request) {
         Activity activity = activityService.selectActivityForDetailById(id);
-        List<ActivityRemark> remarkList = activityRemarkService.selectActivityRemarkByActivityId(id);
+        List<Remark> remarkList = activityRemarkService.selectActivityRemarkByActivityId(id);
         request.setAttribute("activity", activity);
         request.setAttribute("remarkList", remarkList);
         return "workbench/activity/detail";

@@ -42,4 +42,11 @@ public interface ClueService {
      * @return
      */
     Clue selectClueForDetailById(String id);
+
+    /**
+     * 完成线索转换业务
+     * @param map
+     * @return
+     */
+    void convertClue(Map<String, Object> map);
 }

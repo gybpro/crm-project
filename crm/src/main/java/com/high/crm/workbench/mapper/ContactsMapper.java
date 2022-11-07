@@ -50,4 +50,11 @@ public interface ContactsMapper {
      * @mbg.generated Sun Nov 06 14:30:47 CST 2022
      */
     int updateByPrimaryKey(Contacts row);
+
+    /**
+     * 添加联系人信息
+     * @param contacts
+     * @return
+     */
+    int insertContacts(Contacts contacts);
 }

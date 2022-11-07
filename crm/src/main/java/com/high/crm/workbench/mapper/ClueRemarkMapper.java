@@ -2,6 +2,7 @@ package com.high.crm.workbench.mapper;
 
 import com.high.crm.workbench.domain.Clue;
 import com.high.crm.workbench.domain.ClueRemark;
+import com.high.crm.workbench.domain.Remark;
 
 import java.util.List;
 
@@ -59,5 +60,12 @@ public interface ClueRemarkMapper {
      * @param clueId
      * @return
      */
-    List<ClueRemark> selectClueRemarkByClueId(String clueId);
+    List<Remark> selectClueRemarkByClueId(String clueId);
+
+    /**
+     * 根据线索id删除线索备注信息
+     * @param clueId
+     * @return
+     */
+    int deleteClueRemarkByClueId(String clueId);
 }

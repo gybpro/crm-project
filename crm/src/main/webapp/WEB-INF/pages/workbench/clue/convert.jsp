@@ -85,6 +85,16 @@
                 $("#searchActivityModal").modal("hide");
             });
 
+            // 页面加载时加载日历
+            $(".myDate").datetimepicker({
+                language: "zh-CN",// 语言
+                format: "yyyy-mm-dd",// 日期格式
+                minView: "month",// 可选择的最小视图
+                initialDate: new Date(),// 初始化日期
+                todayBtn: true,// 设置跳转到今天的按钮，默认是false
+                clearBtn: true // 设置清空日期的按钮，默认是false
+            });
+
             //给"转换"按钮添加单击事件
             $("#saveConvertClueBtn").click(function () {
                 //收集参数
@@ -96,7 +106,23 @@
                 let activityId = $("#activityId").val();
                 let isCreateTran = $("#isCreateTransaction").prop("checked");
                 //表单验证
-                //money只能是非负整数
+                if (name === "") {
+                    alert("交易名称不能为空");
+                    return;
+                }
+                if (stage === "") {
+                    alert("阶段不能为空");
+                    return;
+                }
+                if (activityId === "") {
+                    alert("市场活动源不能为空");
+                    return;
+                }
+                let regExp = /^(([1-9]\d*)|0)$/;
+                if (!regExp.test(money)) {
+                    alert("金额只能为非负整数");
+                    return;
+                }
 
                 //发送请求
                 $.ajax({
@@ -208,7 +234,7 @@
         </div>
         <div class="form-group" style="width: 400px;position: relative; left: 20px;">
             <label for="expectedClosingDate">预计成交日期</label>
-            <input type="text" class="form-control" id="expectedClosingDate">
+            <input type="text" class="form-control myDate" id="expectedClosingDate" placeholder="点击设置日期" readonly>
         </div>
         <div class="form-group" style="width: 400px;position: relative; left: 20px;">
             <label for="stage">阶段</label>

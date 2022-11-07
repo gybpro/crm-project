@@ -1,6 +1,9 @@
 package com.high.crm.workbench.mapper;
 
+import com.high.crm.workbench.domain.Remark;
 import com.high.crm.workbench.domain.TranRemark;
+
+import java.util.List;
 
 public interface TranRemarkMapper {
     /**
@@ -50,4 +53,11 @@ public interface TranRemarkMapper {
      * @mbg.generated Sun Nov 06 16:35:15 CST 2022
      */
     int updateByPrimaryKey(TranRemark row);
+
+    /**
+     * 批量添加交易备注信息
+     * @param list
+     * @return
+     */
+    int insertTranRemarkByList(List<Remark> list);
 }

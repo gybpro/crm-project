@@ -1,28 +1,33 @@
-<!DOCTYPE html>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%
+	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath() + "/";
+%>
 <html>
 <head>
+	<base href="<%=basePath%>">
 <meta charset="UTF-8">
 
-<link href="../../jquery/bootstrap_3.3.0/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
-<link href="../../jquery/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css" type="text/css" rel="stylesheet" />
+<link href="jquery/bootstrap_3.3.0/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
+<link href="jquery/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css" type="text/css" rel="stylesheet" />
 
-<script type="text/javascript" src="../../jquery/jquery-1.11.1-min.js"></script>
-<script type="text/javascript" src="../../jquery/bootstrap_3.3.0/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="../../jquery/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.min.js"></script>
-<script type="text/javascript" src="../../jquery/bootstrap-datetimepicker-master/locale/bootstrap-datetimepicker.zh-CN.js"></script>
+<script type="text/javascript" src="jquery/jquery-1.11.1-min.js"></script>
+<script type="text/javascript" src="jquery/bootstrap_3.3.0/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="jquery/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript" src="jquery/bootstrap-datetimepicker-master/locale/bootstrap-datetimepicker.zh-CN.js"></script>
 
 <script type="text/javascript">
 
 	$(function(){
-		
+
 		//定制字段
 		$("#definedColumns > li").click(function(e) {
 			//防止下拉菜单消失
 	        e.stopPropagation();
 	    });
-		
+
 	});
-	
+
 </script>
 </head>
 <body>
@@ -39,7 +44,7 @@
 				</div>
 				<div class="modal-body">
 					<form class="form-horizontal" role="form">
-					
+
 						<div class="form-group">
 							<label for="create-customerOwner" class="col-sm-2 control-label">所有者<span style="font-size: 15px; color: red;">*</span></label>
 							<div class="col-sm-10" style="width: 300px;">
@@ -54,7 +59,7 @@
 								<input type="text" class="form-control" id="create-customerName">
 							</div>
 						</div>
-						
+
 						<div class="form-group">
                             <label for="create-website" class="col-sm-2 control-label">公司网站</label>
                             <div class="col-sm-10" style="width: 300px;">
@@ -99,7 +104,7 @@
                             </div>
                         </div>
 					</form>
-					
+
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
@@ -108,7 +113,7 @@
 			</div>
 		</div>
 	</div>
-	
+
 	<!-- 修改客户的模态窗口 -->
 	<div class="modal fade" id="editCustomerModal" role="dialog">
 		<div class="modal-dialog" role="document" style="width: 85%;">
@@ -121,7 +126,7 @@
 				</div>
 				<div class="modal-body">
 					<form class="form-horizontal" role="form">
-					
+
 						<div class="form-group">
 							<label for="edit-customerOwner" class="col-sm-2 control-label">所有者<span style="font-size: 15px; color: red;">*</span></label>
 							<div class="col-sm-10" style="width: 300px;">
@@ -136,7 +141,7 @@
 								<input type="text" class="form-control" id="edit-customerName" value="动力节点">
 							</div>
 						</div>
-						
+
 						<div class="form-group">
                             <label for="edit-website" class="col-sm-2 control-label">公司网站</label>
                             <div class="col-sm-10" style="width: 300px;">
@@ -147,14 +152,14 @@
 								<input type="text" class="form-control" id="edit-phone" value="010-84846003">
 							</div>
 						</div>
-						
+
 						<div class="form-group">
 							<label for="edit-describe" class="col-sm-2 control-label">描述</label>
 							<div class="col-sm-10" style="width: 81%;">
 								<textarea class="form-control" rows="3" id="edit-describe"></textarea>
 							</div>
 						</div>
-						
+
 						<div style="height: 1px; width: 103%; background-color: #D5D5D5; left: -13px; position: relative;"></div>
 
                         <div style="position: relative;top: 15px;">
@@ -183,7 +188,7 @@
                             </div>
                         </div>
 					</form>
-					
+
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
@@ -192,10 +197,10 @@
 			</div>
 		</div>
 	</div>
-	
-	
-	
-	
+
+
+
+
 	<div>
 		<div style="position: relative; left: 10px; top: -10px;">
 			<div class="page-header">
@@ -203,44 +208,44 @@
 			</div>
 		</div>
 	</div>
-	
+
 	<div style="position: relative; top: -20px; left: 0px; width: 100%; height: 100%;">
-	
+
 		<div style="width: 100%; position: absolute;top: 5px; left: 10px;">
-		
+
 			<div class="btn-toolbar" role="toolbar" style="height: 80px;">
 				<form class="form-inline" role="form" style="position: relative;top: 8%; left: 5px;">
-				  
+
 				  <div class="form-group">
 				    <div class="input-group">
 				      <div class="input-group-addon">名称</div>
 				      <input class="form-control" type="text">
 				    </div>
 				  </div>
-				  
+
 				  <div class="form-group">
 				    <div class="input-group">
 				      <div class="input-group-addon">所有者</div>
 				      <input class="form-control" type="text">
 				    </div>
 				  </div>
-				  
+
 				  <div class="form-group">
 				    <div class="input-group">
 				      <div class="input-group-addon">公司座机</div>
 				      <input class="form-control" type="text">
 				    </div>
 				  </div>
-				  
+
 				  <div class="form-group">
 				    <div class="input-group">
 				      <div class="input-group-addon">公司网站</div>
 				      <input class="form-control" type="text">
 				    </div>
 				  </div>
-				  
+
 				  <button type="submit" class="btn btn-default">查询</button>
-				  
+
 				</form>
 			</div>
 			<div class="btn-toolbar" role="toolbar" style="background-color: #F7F7F7; height: 50px; position: relative;top: 5px;">
@@ -249,7 +254,7 @@
 				  <button type="button" class="btn btn-default" data-toggle="modal" data-target="#editCustomerModal"><span class="glyphicon glyphicon-pencil"></span> 修改</button>
 				  <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-minus"></span> 删除</button>
 				</div>
-				
+
 			</div>
 			<div style="position: relative;top: 10px;">
 				<table class="table table-hover">
@@ -280,7 +285,7 @@
 					</tbody>
 				</table>
 			</div>
-			
+
 			<div style="height: 50px; position: relative;top: 30px;">
 				<div>
 					<button type="button" class="btn btn-default" style="cursor: default;">共<b>50</b>条记录</button>
@@ -315,9 +320,9 @@
 					</nav>
 				</div>
 			</div>
-			
+
 		</div>
-		
+
 	</div>
 </body>
 </html>

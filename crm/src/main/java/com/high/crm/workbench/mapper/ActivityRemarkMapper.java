@@ -1,6 +1,7 @@
 package com.high.crm.workbench.mapper;
 
 import com.high.crm.workbench.domain.ActivityRemark;
+import com.high.crm.workbench.domain.Remark;
 
 import java.util.List;
 
@@ -58,7 +59,7 @@ public interface ActivityRemarkMapper {
      * @param activityId
      * @return
      */
-    List<ActivityRemark> selectActivityRemarkByActivityId(String activityId);
+    List<Remark> selectActivityRemarkByActivityId(String activityId);
 
     /**
      * 添加市场活动备注

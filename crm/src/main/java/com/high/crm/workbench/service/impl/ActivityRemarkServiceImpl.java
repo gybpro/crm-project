@@ -1,6 +1,7 @@
 package com.high.crm.workbench.service.impl;
 
 import com.high.crm.workbench.domain.ActivityRemark;
+import com.high.crm.workbench.domain.Remark;
 import com.high.crm.workbench.mapper.ActivityRemarkMapper;
 import com.high.crm.workbench.service.ActivityRemarkService;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,7 @@ public class ActivityRemarkServiceImpl implements ActivityRemarkService {
     }
 
     @Override
-    public List<ActivityRemark> selectActivityRemarkByActivityId(String activityId) {
+    public List<Remark> selectActivityRemarkByActivityId(String activityId) {
         return activityRemarkMapper.selectActivityRemarkByActivityId(activityId);
     }
 

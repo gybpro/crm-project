@@ -181,4 +181,8 @@
         where cr.clue_id = #{clueId}
         order by cr.create_time desc
     </select>
+
+    <delete id="deleteClueRemarkByClueId" parameterType="string">
+        delete from tbl_clue_remark where clue_id = #{clueId}
+    </delete>
 </mapper>

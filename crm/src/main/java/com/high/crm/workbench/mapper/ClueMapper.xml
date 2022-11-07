@@ -427,4 +427,8 @@
                  left join tbl_dic_value dv1 on c.appellation = dv1.id
         where c.id = #{id}
     </select>
+
+    <delete id="deleteClueById" parameterType="string">
+        delete from tbl_clue where id = #{id}
+    </delete>
 </mapper>

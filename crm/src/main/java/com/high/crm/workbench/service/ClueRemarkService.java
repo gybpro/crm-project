@@ -1,6 +1,7 @@
 package com.high.crm.workbench.service;
 
 import com.high.crm.workbench.domain.ClueRemark;
+import com.high.crm.workbench.domain.Remark;
 
 import java.util.List;
 
@@ -17,5 +18,5 @@ public interface ClueRemarkService {
      * @param clueId
      * @return
      */
-    List<ClueRemark> selectClueRemarkByClueId(String clueId);
+    List<Remark> selectClueRemarkByClueId(String clueId);
 }

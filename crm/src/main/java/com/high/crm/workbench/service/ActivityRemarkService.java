@@ -1,6 +1,7 @@
 package com.high.crm.workbench.service;
 
 import com.high.crm.workbench.domain.ActivityRemark;
+import com.high.crm.workbench.domain.Remark;
 
 import java.util.List;
 
@@ -17,7 +18,7 @@ public interface ActivityRemarkService {
      * @param activityId
      * @return
      */
-    List<ActivityRemark> selectActivityRemarkByActivityId(String activityId);
+    List<Remark> selectActivityRemarkByActivityId(String activityId);
 
     /**
      * 添加市场活动备注

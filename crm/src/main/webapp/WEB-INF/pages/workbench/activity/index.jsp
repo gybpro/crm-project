@@ -101,6 +101,7 @@
                     alert("成本只能为非负整数");
                     return;
                 }
+
                 // 发送请求
                 $.ajax({
                     type: "POST",
@@ -462,11 +463,11 @@
                     <div class="form-group">
                         <label for="create-startDate" class="col-sm-2 control-label">开始日期</label>
                         <div class="col-sm-10" style="width: 300px;">
-                            <input type="text" class="form-control myDate" id="create-startDate" readonly>
+                            <input type="text" class="form-control myDate" id="create-startDate" placeholder="点击设置日期" readonly>
                         </div>
                         <label for="create-endDate" class="col-sm-2 control-label">结束日期</label>
                         <div class="col-sm-10" style="width: 300px;">
-                            <input type="text" class="form-control myDate" id="create-endDate" readonly>
+                            <input type="text" class="form-control myDate" id="create-endDate" placeholder="点击设置日期" readonly>
                         </div>
                     </div>
                     <div class="form-group">
@@ -529,11 +530,11 @@
                     <div class="form-group">
                         <label for="edit-startDate" class="col-sm-2 control-label">开始日期</label>
                         <div class="col-sm-10" style="width: 300px;">
-                            <input type="text" class="form-control myDate" id="edit-startDate" readonly>
+                            <input type="text" class="form-control myDate" id="edit-startDate" placeholder="点击设置日期" readonly>
                         </div>
                         <label for="edit-endDate" class="col-sm-2 control-label">结束日期</label>
                         <div class="col-sm-10" style="width: 300px;">
-                            <input type="text" class="form-control myDate" id="edit-endDate" readonly>
+                            <input type="text" class="form-control myDate" id="edit-endDate" placeholder="点击设置日期" readonly>
                         </div>
                     </div>
 

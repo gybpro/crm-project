@@ -1,6 +1,7 @@
 package com.high.crm.workbench.service.impl;
 
 import com.high.crm.workbench.domain.ClueRemark;
+import com.high.crm.workbench.domain.Remark;
 import com.high.crm.workbench.mapper.ClueRemarkMapper;
 import com.high.crm.workbench.service.ClueRemarkService;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,7 @@ public class ClueRemarkServiceImpl implements ClueRemarkService {
     }
 
     @Override
-    public List<ClueRemark> selectClueRemarkByClueId(String clueId) {
+    public List<Remark> selectClueRemarkByClueId(String clueId) {
         return clueRemarkMapper.selectClueRemarkByClueId(clueId);
     }
 }
