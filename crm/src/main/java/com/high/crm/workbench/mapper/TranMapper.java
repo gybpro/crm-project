@@ -1,6 +1,10 @@
 package com.high.crm.workbench.mapper;
 
+import com.high.crm.workbench.domain.FunnelVO;
 import com.high.crm.workbench.domain.Tran;
+
+import java.util.List;
+import java.util.Map;
 
 public interface TranMapper {
     /**
@@ -57,4 +61,24 @@ public interface TranMapper {
      * @return
      */
     int insertTran(Tran tran);
+
+    /**
+     * 按条件分页查询(全查，条件查，显示页，详情页)
+     * @param map
+     * @return
+     */
+    List<Tran> selectTranByConditionForPage(Map<String, Object> map);
+
+    /**
+     * 根据id查询交易的明细信息
+     * @param id
+     * @return
+     */
+    Tran selectTranForDetailById(String id);
+
+    /**
+     * 查询交易表中各个阶段的数据量
+     * @return
+     */
+    List<FunnelVO> selectCountOfTranGroupByStage();
 }

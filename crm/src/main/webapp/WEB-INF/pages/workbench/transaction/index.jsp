@@ -1,21 +1,33 @@
-<!DOCTYPE html>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%
+String basePath=request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath()+"/";
+%>
 <html>
 <head>
+	<base href="<%=basePath%>">
 <meta charset="UTF-8">
 
-<link href="../../jquery/bootstrap_3.3.0/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
-<link href="../../jquery/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css" type="text/css" rel="stylesheet" />
+<link href="jquery/bootstrap_3.3.0/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
+<link href="jquery/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css" type="text/css" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="jquery/bs_pagination-master/css/jquery.bs_pagination.min.css">
 
-<script type="text/javascript" src="../../jquery/jquery-1.11.1-min.js"></script>
-<script type="text/javascript" src="../../jquery/bootstrap_3.3.0/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="../../jquery/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.js"></script>
-<script type="text/javascript" src="../../jquery/bootstrap-datetimepicker-master/locale/bootstrap-datetimepicker.zh-CN.js"></script>
+<script type="text/javascript" src="jquery/jquery-1.11.1-min.js"></script>
+<script type="text/javascript" src="jquery/bootstrap_3.3.0/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="jquery/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.js"></script>
+<script type="text/javascript" src="jquery/bootstrap-datetimepicker-master/locale/bootstrap-datetimepicker.zh-CN.js"></script>
+	<script type="text/javascript" src="jquery/bs_pagination-master/js/jquery.bs_pagination.min.js"></script>
+	<script type="text/javascript" src="jquery/bs_pagination-master/localization/en.js"></script>
 
 <script type="text/javascript">
 
 	$(function(){
 
-
+		//给"创建"按钮添加单击事件
+		$("#createTranBtn").click(function () {
+			//发送同步请求
+			window.location.href="workbench/transaction/toSave.do";
+		});
 
 	});
 
@@ -68,15 +80,9 @@
 				      <div class="input-group-addon">阶段</div>
 					  <select class="form-control">
 					  	<option></option>
-					  	<option>资质审查</option>
-					  	<option>需求分析</option>
-					  	<option>价值建议</option>
-					  	<option>确定决策者</option>
-					  	<option>提案/报价</option>
-					  	<option>谈判/复审</option>
-					  	<option>成交</option>
-					  	<option>丢失的线索</option>
-					  	<option>因竞争丢失关闭</option>
+					  	<c:forEach items="${stageList}" var="s">
+							<option value="${s.id}">${s.value}</option>
+						</c:forEach>
 					  </select>
 				    </div>
 				  </div>
@@ -86,8 +92,9 @@
 				      <div class="input-group-addon">类型</div>
 					  <select class="form-control">
 					  	<option></option>
-					  	<option>已有业务</option>
-					  	<option>新业务</option>
+					  	<c:forEach items="${transactionTypeList}" var="tt">
+							<option value="${tt.id}">${tt.value}</option>
+						</c:forEach>
 					  </select>
 				    </div>
 				  </div>
@@ -97,20 +104,9 @@
 				      <div class="input-group-addon">来源</div>
 				      <select class="form-control" id="create-clueSource">
 						  <option></option>
-						  <option>广告</option>
-						  <option>推销电话</option>
-						  <option>员工介绍</option>
-						  <option>外部介绍</option>
-						  <option>在线商场</option>
-						  <option>合作伙伴</option>
-						  <option>公开媒介</option>
-						  <option>销售邮件</option>
-						  <option>合作伙伴研讨会</option>
-						  <option>内部研讨会</option>
-						  <option>交易会</option>
-						  <option>web下载</option>
-						  <option>web调研</option>
-						  <option>聊天</option>
+						  <c:forEach items="${sourceList}" var="so">
+							  <option value="${so.id}">${so.value}</option>
+						  </c:forEach>
 						</select>
 				    </div>
 				  </div>
@@ -128,7 +124,7 @@
 			</div>
 			<div class="btn-toolbar" role="toolbar" style="background-color: #F7F7F7; height: 50px; position: relative;top: 10px;">
 				<div class="btn-group" style="position: relative; top: 18%;">
-				  <button type="button" class="btn btn-primary" onclick="window.location.href='save.html';"><span class="glyphicon glyphicon-plus"></span> 创建</button>
+				  <button type="button" class="btn btn-primary" id="createTranBtn"><span class="glyphicon glyphicon-plus"></span> 创建</button>
 				  <button type="button" class="btn btn-default" onclick="window.location.href='edit.html';"><span class="glyphicon glyphicon-pencil"></span> 修改</button>
 				  <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-minus"></span> 删除</button>
 				</div>
@@ -150,10 +146,10 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
+						<%--<tr>
 							<td><input type="checkbox" /></td>
-							<td><a style="text-decoration: none; cursor: pointer;" onclick="window.location.href='detail.html';">high-交易01</a></td>
-							<td>high</td>
+							<td><a style="text-decoration: none; cursor: pointer;" onclick="window.location.href='workbench/transaction/detailTran.do?id=3990af11a4c84c3e95421a32b2724e26';">京东-交易测试03</a></td>
+							<td>动力节点</td>
 							<td>谈判/复审</td>
 							<td>新业务</td>
 							<td>zhangsan</td>
@@ -162,14 +158,14 @@
 						</tr>
                         <tr class="active">
                             <td><input type="checkbox" /></td>
-                            <td><a style="text-decoration: none; cursor: pointer;" onclick="window.location.href='detail.html';">high-交易01</a></td>
-                            <td>high</td>
+                            <td><a style="text-decoration: none; cursor: pointer;" onclick="window.location.href='detail.jsp';">动力节点-交易01</a></td>
+                            <td>动力节点</td>
                             <td>谈判/复审</td>
                             <td>新业务</td>
                             <td>zhangsan</td>
                             <td>广告</td>
                             <td>李四</td>
-                        </tr>
+                        </tr>--%>
 					</tbody>
 				</table>
 			</div>

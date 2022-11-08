@@ -60,4 +60,6 @@ public interface TranRemarkMapper {
      * @return
      */
     int insertTranRemarkByList(List<Remark> list);
+
+    List<Remark> selectTranRemarkForDetailByTranId(String tranId);
 }

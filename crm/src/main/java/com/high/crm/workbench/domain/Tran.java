@@ -594,4 +594,26 @@ public class Tran {
     public void setNextContactTime(String nextContactTime) {
         this.nextContactTime = nextContactTime == null ? null : nextContactTime.trim();
     }
+
+    //为了显示交易的明细信息而扩展的属性
+    private String possibility;
+
+    //为了显示交易阶段图标而扩展的属性
+    private String orderNo;
+
+    public String getOrderNo() {
+        return orderNo;
+    }
+
+    public void setOrderNo(String orderNo) {
+        this.orderNo = orderNo;
+    }
+
+    public String getPossibility() {
+        return possibility;
+    }
+
+    public void setPossibility(String possibility) {
+        this.possibility = possibility;
+    }
 }

@@ -156,7 +156,7 @@ public class ClueServiceImpl implements ClueService {
         contactsActivityRelationMapper.insertContactsActivityRelationByList(contactsActivityRelationList);
 
         // 判断是否创建交易
-        if ("true".equals((String) map.get("isCreateTran"))) {
+        if ("true".equals(map.get("isCreateTran"))) {
             // 添加交易
             Tran tran = new Tran();
             tran.setId(UUIDUtil.getUUID());

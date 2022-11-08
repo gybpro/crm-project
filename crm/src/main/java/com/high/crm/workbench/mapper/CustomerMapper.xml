@@ -241,4 +241,17 @@
                 #{description,jdbcType=VARCHAR},
                 #{address,jdbcType=VARCHAR})
     </insert>
+
+    <select id="selectCustomerNameByName" parameterType="string" resultType="string">
+        select name
+        from tbl_customer
+        where name like '%' #{name} '%'
+    </select>
+
+    <select id="selectCustomerByName" parameterType="string" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tbl_customer
+        where name=#{name}
+    </select>
 </mapper>
