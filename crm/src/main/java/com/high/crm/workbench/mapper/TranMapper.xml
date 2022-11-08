@@ -324,7 +324,7 @@
                dv2.value   as type,
                dv3.value   as source,
                a.name      as activity_id,
-               co.fullname as contacts_id,
+               co.full_name as contacts_id,
                u2.name     as create_by,
                t.create_time,
                u3.name     as edit_by,

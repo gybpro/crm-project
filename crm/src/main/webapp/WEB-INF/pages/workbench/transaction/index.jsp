@@ -10,19 +10,15 @@ String basePath=request.getScheme()+"://"+request.getServerName()+":"+request.ge
 
 <link href="jquery/bootstrap_3.3.0/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
 <link href="jquery/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css" type="text/css" rel="stylesheet" />
-	<link rel="stylesheet" type="text/css" href="jquery/bs_pagination-master/css/jquery.bs_pagination.min.css">
 
 <script type="text/javascript" src="jquery/jquery-1.11.1-min.js"></script>
 <script type="text/javascript" src="jquery/bootstrap_3.3.0/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="jquery/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.js"></script>
 <script type="text/javascript" src="jquery/bootstrap-datetimepicker-master/locale/bootstrap-datetimepicker.zh-CN.js"></script>
-	<script type="text/javascript" src="jquery/bs_pagination-master/js/jquery.bs_pagination.min.js"></script>
-	<script type="text/javascript" src="jquery/bs_pagination-master/localization/en.js"></script>
 
 <script type="text/javascript">
 
 	$(function(){
-
 		//给"创建"按钮添加单击事件
 		$("#createTranBtn").click(function () {
 			//发送同步请求
@@ -146,10 +142,10 @@ String basePath=request.getScheme()+"://"+request.getServerName()+":"+request.ge
 						</tr>
 					</thead>
 					<tbody>
-						<%--<tr>
+						<tr>
 							<td><input type="checkbox" /></td>
-							<td><a style="text-decoration: none; cursor: pointer;" onclick="window.location.href='workbench/transaction/detailTran.do?id=3990af11a4c84c3e95421a32b2724e26';">京东-交易测试03</a></td>
-							<td>动力节点</td>
+							<td><a style="text-decoration: none; cursor: pointer;" onclick="window.location.href='workbench/transaction/detailTran.do?id=c1fa5df703ac41fd8fa980fdaa1f1f53';">交易测试03</a></td>
+							<td>high</td>
 							<td>谈判/复审</td>
 							<td>新业务</td>
 							<td>zhangsan</td>
@@ -158,14 +154,14 @@ String basePath=request.getScheme()+"://"+request.getServerName()+":"+request.ge
 						</tr>
                         <tr class="active">
                             <td><input type="checkbox" /></td>
-                            <td><a style="text-decoration: none; cursor: pointer;" onclick="window.location.href='detail.jsp';">动力节点-交易01</a></td>
-                            <td>动力节点</td>
+                            <td><a style="text-decoration: none; cursor: pointer;" onclick="window.location.href='detail.jsp';">high-交易01</a></td>
+                            <td>high</td>
                             <td>谈判/复审</td>
                             <td>新业务</td>
                             <td>zhangsan</td>
                             <td>广告</td>
                             <td>李四</td>
-                        </tr>--%>
+                        </tr>
 					</tbody>
 				</table>
 			</div>
