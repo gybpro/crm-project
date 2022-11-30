@@ -38,6 +38,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 
 		window.open("workbench/main/index.do","workareaFrame");
 
+		// 安全退出点击事件
 		$("#logout").click(function () {
 			window.location = "settings/qx/user/logout.do";
 		});
